@@ -29,14 +29,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // Otimizações de performance
-  experimental: {
-    optimizeCss: true,
-  },
-
-  // Configurações de compressão
-  compress: true,
 };
 
 module.exports = nextConfig;
