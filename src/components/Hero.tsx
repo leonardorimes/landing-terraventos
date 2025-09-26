@@ -23,6 +23,14 @@ export default function Hero({ onContactClick }: HeroProps) {
     "/video/video3.MP4", // Maior (427MB)
   ];
 
+  // Cache de vídeos para melhor performance
+  const [videoCache, setVideoCache] = useState<Map<string, HTMLVideoElement>>(
+    new Map()
+  );
+
+  // Preload do próximo vídeo
+  const [preloadedVideo, setPreloadedVideo] = useState<string>("");
+
   // Estado para controlar o loading screen
   const [isLoading, setIsLoading] = useState(true);
 
@@ -63,7 +71,7 @@ export default function Hero({ onContactClick }: HeroProps) {
     setPreviousVideo(randomVideo);
   }, []);
 
-  // Função para carregar vídeo
+  // Função para carregar vídeo com otimizações
   const loadVideo = async () => {
     if (!currentVideo || !videoRef.current) return;
 
@@ -73,6 +81,18 @@ export default function Hero({ onContactClick }: HeroProps) {
     setVideoError(false);
 
     try {
+      // Verificar se vídeo já está em cache
+      if (videoCache.has(currentVideo)) {
+        console.log("📦 Vídeo encontrado no cache");
+        const cachedVideo = videoCache.get(currentVideo);
+        if (cachedVideo && videoRef.current) {
+          videoRef.current.src = cachedVideo.src;
+          videoRef.current.currentTime = 0;
+          await videoRef.current.play();
+          return;
+        }
+      }
+
       // Reset do vídeo
       videoRef.current.currentTime = 0;
       videoRef.current.load();
@@ -82,6 +102,16 @@ export default function Hero({ onContactClick }: HeroProps) {
         "canplay",
         async () => {
           try {
+            // Cache o vídeo para futuras reproduções
+            if (videoRef.current) {
+              const newCache = new Map(videoCache);
+              newCache.set(
+                currentVideo,
+                videoRef.current.cloneNode() as HTMLVideoElement
+              );
+              setVideoCache(newCache);
+            }
+
             await videoRef.current?.play();
           } catch (playError) {
             console.log(
@@ -104,6 +134,30 @@ export default function Hero({ onContactClick }: HeroProps) {
     }
   }, [currentVideo]);
 
+  // Função para preload do próximo vídeo
+  const preloadNextVideo = (currentVideo: string) => {
+    const nextVideo = getRandomVideo();
+    if (nextVideo !== currentVideo) {
+      console.log("🔄 Preload do próximo vídeo:", nextVideo);
+      setPreloadedVideo(nextVideo);
+
+      // Criar elemento de vídeo para preload
+      const preloadVideo = document.createElement("video");
+      preloadVideo.src = nextVideo;
+      preloadVideo.preload = "metadata";
+      preloadVideo.muted = true;
+      preloadVideo.style.display = "none";
+      document.body.appendChild(preloadVideo);
+
+      // Limpar após um tempo
+      setTimeout(() => {
+        if (document.body.contains(preloadVideo)) {
+          document.body.removeChild(preloadVideo);
+        }
+      }, 30000); // 30 segundos
+    }
+  };
+
   // Função para trocar vídeo
   const changeVideo = () => {
     const newVideo = getRandomVideo();
@@ -111,6 +165,9 @@ export default function Hero({ onContactClick }: HeroProps) {
     setPreviousVideo(currentVideo);
     setCurrentVideo(newVideo);
     setIsVideoPlaying(false);
+
+    // Preload do próximo vídeo
+    preloadNextVideo(newVideo);
   };
 
   // Handlers do vídeo
@@ -135,6 +192,11 @@ export default function Hero({ onContactClick }: HeroProps) {
     console.log("▶️ Vídeo reproduzindo");
     setIsVideoPlaying(true);
     setIsVideoLoading(false);
+
+    // Iniciar preload do próximo vídeo quando o atual começar a reproduzir
+    if (currentVideo) {
+      preloadNextVideo(currentVideo);
+    }
   };
 
   const handleVideoPause = () => {
@@ -185,6 +247,9 @@ export default function Hero({ onContactClick }: HeroProps) {
               playsInline
               preload="metadata"
               loop={false}
+              // Otimizações de performance
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               onLoadStart={handleVideoLoadStart}
               onCanPlay={handleVideoCanPlay}
               onLoadedData={handleVideoLoadedData}
@@ -192,6 +257,8 @@ export default function Hero({ onContactClick }: HeroProps) {
               onPause={handleVideoPause}
               onEnded={handleVideoEnded}
               onError={handleVideoError}
+              // Otimizações de rede
+              crossOrigin="anonymous"
             >
               <source src={currentVideo} type="video/mp4" />
               Seu navegador não suporta reprodução de vídeo.

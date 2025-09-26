@@ -3,7 +3,7 @@ const nextConfig = {
   // Configurações básicas
   compress: true,
 
-  // Headers para vídeos
+  // Headers para vídeos otimizados
   async headers() {
     return [
       {
@@ -17,10 +17,26 @@ const nextConfig = {
             key: "Accept-Ranges",
             value: "bytes",
           },
+          {
+            key: "Content-Type",
+            value: "video/mp4",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
         ],
       },
     ];
   },
+
+  // Otimizações de performance
+  experimental: {
+    optimizeCss: true,
+  },
+
+  // Configurações de compressão
+  compress: true,
 };
 
 module.exports = nextConfig;
