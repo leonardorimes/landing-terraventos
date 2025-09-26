@@ -94,7 +94,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           {currentVideo && (
             <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
               <iframe
-                className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover"
+                className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
                 src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1`}
                 title="Background Video"
                 frameBorder="0"
@@ -152,10 +152,10 @@ export default function Hero({ onContactClick }: HeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 z-15"></div>
 
         {/* Content */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center">
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center py-8 md:py-0">
           <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
-              className="text-white space-y-6 md:space-y-8"
+              className="text-white space-y-4 md:space-y-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -199,7 +199,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.h1>
 
               <motion.h2
-                className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white/95 drop-shadow-lg font-avenir"
+                className="text-xl md:text-3xl lg:text-4xl font-semibold text-white/95 drop-shadow-lg font-avenir"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -212,7 +212,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.h2>
 
               <motion.p
-                className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto drop-shadow-md font-avenir"
+                className="text-base md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto drop-shadow-md font-avenir"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -228,7 +228,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center mt-6 md:mt-8 w-full"
+                className="flex flex-col sm:flex-row gap-4 justify-center mt-4 md:mt-8 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -260,7 +260,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
         {/* Floating Stats - Hidden on mobile to avoid overlap */}
         <motion.div
-          className="hidden md:block absolute top-8 right-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
+          className="hidden lg:block absolute top-8 right-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
           initial={{ opacity: 0, scale: 0.8, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -273,7 +273,7 @@ export default function Hero({ onContactClick }: HeroProps) {
         </motion.div>
 
         <motion.div
-          className="hidden md:block absolute bottom-8 left-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
+          className="hidden lg:block absolute bottom-8 left-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -285,36 +285,9 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* Mobile Stats - Inline with content */}
-        <div className="md:hidden flex justify-center gap-6 mt-6">
-          <motion.div
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/20"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            <div className="text-center text-white">
-              <div className="text-2xl font-bold text-accent-500">500+</div>
-              <div className="text-xs text-white/80">Investidores</div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-white/20"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          >
-            <div className="text-center text-white">
-              <div className="text-2xl font-bold text-accent-500">R$ 50M+</div>
-              <div className="text-xs text-white/80">Volume</div>
-            </div>
-          </motion.div>
-        </div>
-
         {/* Floating Elements - Hidden on mobile */}
         <motion.div
-          className="hidden md:block absolute top-1/4 left-8 w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center shadow-lg"
+          className="hidden lg:block absolute top-1/4 left-8 w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center shadow-lg"
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 1, delay: 1 }}
@@ -330,7 +303,7 @@ export default function Hero({ onContactClick }: HeroProps) {
         </motion.div>
 
         <motion.div
-          className="hidden md:block absolute bottom-1/4 right-8 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm"
+          className="hidden lg:block absolute bottom-1/4 right-8 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm"
           initial={{ scale: 0, rotate: 180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
