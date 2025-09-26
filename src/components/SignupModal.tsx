@@ -3,12 +3,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
+// Interface para as props do modal de cadastro
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+// Modal de cadastro para a Comunidade Terra Ventos
+// Este componente é um modal que aparece quando o usuário clica para se cadastrar
 export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
+  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -19,6 +23,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
     aceitoComunicacoes: false,
   });
 
+  // Estados para controlar o envio do formulário
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -206,7 +211,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       onChange={handleInputChange}
                       placeholder="Seu nome completo"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                     />
                   </div>
 
@@ -226,7 +231,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       onChange={handleInputChange}
                       placeholder="seu@email.com"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                     />
                   </div>
 
@@ -246,7 +251,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       onChange={handleInputChange}
                       placeholder="+55 (DDD) 9XXXX-XXXX"
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                     />
                   </div>
 
@@ -265,7 +270,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       value={formData.paisEstado}
                       onChange={handleInputChange}
                       placeholder="Ex: Brasil / CE"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                     />
                   </div>
 
@@ -283,7 +288,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       value={formData.faixaInvestimento}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white text-black"
                     >
                       <option value="">Selecione</option>
                       <option value="ate-100k">Até R$ 100.000</option>
@@ -323,7 +328,7 @@ export default function SignupModal({ isOpen, onClose }: SignupModalProps) {
                       value={formData.interessePrincipal}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white text-black"
                     >
                       <option value="">Selecione</option>
                       <option value="investimento">Investimento</option>

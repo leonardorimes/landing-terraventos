@@ -7,41 +7,39 @@ import LoadingScreen from "./LoadingScreen";
 import ResizeLoading from "./ResizeLoading";
 import { useResizeLoading } from "../hooks/useResizeLoading";
 
+// Interface para as props do componente Hero
 interface HeroProps {
   onContactClick: () => void;
 }
 
+// Componente principal da seção Hero da Comunidade Terra Ventos
+// Este componente contém o vídeo de fundo, animações e call-to-actions principais
 export default function Hero({ onContactClick }: HeroProps) {
+  // Estados para controle de vídeos
   const [currentVideo, setCurrentVideo] = useState<string>("");
   const [previousVideo, setPreviousVideo] = useState<string>("");
 
-  // Vídeo fixo do YouTube
+  // ID do vídeo fixo do YouTube que será exibido como fundo
   const videoId = "C1MRkfuTtOI"; // Vídeo fixo do YouTube
 
-  // Estado para controlar o loading screen
-  const [isLoading, setIsLoading] = useState(true);
+  // Estados para controlar diferentes fases de carregamento
+  const [isLoading, setIsLoading] = useState(true); // Loading screen inicial
+  const [isVideoLoading, setIsVideoLoading] = useState(false); // Carregamento do vídeo
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false); // Reprodução do vídeo
+  const [videoError, setVideoError] = useState(false); // Erro no carregamento do vídeo
 
-  // Estado para controlar se vídeo está carregando
-  const [isVideoLoading, setIsVideoLoading] = useState(false);
-
-  // Estado para controlar se vídeo está reproduzindo
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
-  // Estado para controlar se houve erro no vídeo
-  const [videoError, setVideoError] = useState(false);
-
-  // Hook para detectar redimensionamento significativo
+  // Hook personalizado para detectar redimensionamento significativo da janela
   const isResizeLoading = useResizeLoading({
-    threshold: 25, // 25% de mudança para triggerar
-    duration: 3000, // 3 segundos de loading
+    threshold: 25, // 25% de mudança para triggerar o loading
+    duration: 3000, // 3 segundos de duração do loading
   });
 
-  // Função para completar o loading
+  // Função para finalizar o loading screen inicial
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
-  // Carregar vídeo fixo do YouTube
+  // Effect para carregar o vídeo fixo do YouTube ao montar o componente
   useEffect(() => {
     console.log("🎬 Carregando vídeo do YouTube:", videoId);
     setCurrentVideo(videoId);
@@ -50,18 +48,19 @@ export default function Hero({ onContactClick }: HeroProps) {
     setVideoError(false);
   }, []);
 
-  // Handlers do vídeo
+  // Funções para lidar com eventos do vídeo
   const handleVideoLoadStart = () => {
     console.log("🔄 Carregamento do iframe iniciado");
     setIsVideoLoading(true);
     setVideoError(false);
-    // Simular carregamento completo após um tempo
+    // Simular carregamento completo após um tempo (para UX)
     setTimeout(() => {
       setIsVideoLoading(false);
       setIsVideoPlaying(true);
     }, 2000);
   };
 
+  // Função para lidar com erros no carregamento do vídeo
   const handleVideoError = (
     e: React.SyntheticEvent<HTMLIFrameElement, Event>
   ) => {
@@ -78,19 +77,20 @@ export default function Hero({ onContactClick }: HeroProps) {
 
   return (
     <>
-      {/* Loading Screen */}
+      {/* Tela de loading inicial */}
       {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-      {/* Resize Loading */}
+      {/* Loading durante redimensionamento da janela */}
       <ResizeLoading isVisible={isResizeLoading} />
 
+      {/* Seção principal do Hero */}
       <section className="relative min-h-screen flex items-center w-full max-w-full overflow-hidden">
-        {/* Video Background */}
+        {/* Container do vídeo de fundo */}
         <div className="absolute inset-0 w-full h-full">
-          {/* Fundo preto como fallback */}
+          {/* Fundo preto como fallback caso o vídeo não carregue */}
           <div className="absolute inset-0 bg-black"></div>
 
-          {/* Vídeo do YouTube */}
+          {/* Iframe do vídeo do YouTube com configurações otimizadas */}
           {currentVideo && (
             <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
               <iframe
@@ -107,7 +107,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             </div>
           )}
 
-          {/* Loading do vídeo */}
+          {/* Overlay de loading durante carregamento do vídeo */}
           {isVideoLoading && (
             <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-20">
               <div className="text-center text-white">
@@ -118,7 +118,7 @@ export default function Hero({ onContactClick }: HeroProps) {
             </div>
           )}
 
-          {/* Mensagem de erro */}
+          {/* Tela de erro caso o vídeo não carregue */}
           {videoError && (
             <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-20">
               <div className="text-center text-white max-w-md mx-auto px-4">
@@ -145,13 +145,13 @@ export default function Hero({ onContactClick }: HeroProps) {
           )}
         </div>
 
-        {/* Dark Overlay for Text Visibility */}
+        {/* Overlay escuro para melhorar a visibilidade do texto */}
         <div className="absolute inset-0 bg-black/10 z-10"></div>
 
-        {/* Subtle gradient overlay for better text readability */}
+        {/* Gradiente sutil para melhorar a legibilidade do texto */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 z-15"></div>
 
-        {/* Content */}
+        {/* Container principal do conteúdo */}
         <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center py-8 md:py-0">
           <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
@@ -160,7 +160,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {/* Badge */}
+              {/* Badge de destaque da comunidade */}
               <motion.div
                 className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium border border-white/20"
                 initial={{ opacity: 0, y: 20 }}
@@ -258,7 +258,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </div>
 
-        {/* Floating Stats - Hidden on mobile to avoid overlap */}
+        {/* Estatísticas flutuantes - Ocultas no mobile para evitar sobreposição */}
         <motion.div
           className="hidden lg:block absolute top-8 right-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
           initial={{ opacity: 0, scale: 0.8, y: -20 }}
@@ -272,6 +272,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </motion.div>
 
+        {/* Segunda estatística flutuante */}
         <motion.div
           className="hidden lg:block absolute bottom-8 left-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -285,7 +286,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* Floating Elements - Hidden on mobile */}
+        {/* Elementos decorativos flutuantes - Ocultos no mobile */}
         <motion.div
           className="hidden lg:block absolute top-1/4 left-8 w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center shadow-lg"
           initial={{ scale: 0, rotate: -180 }}
@@ -302,6 +303,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           </svg>
         </motion.div>
 
+        {/* Segundo elemento decorativo flutuante */}
         <motion.div
           className="hidden lg:block absolute bottom-1/4 right-8 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm"
           initial={{ scale: 0, rotate: 180 }}

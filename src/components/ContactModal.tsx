@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 
+// Interface para as props do modal de contato
 interface ContactModalProps {
   onClose: () => void;
 }
 
+// Modal de contato para informações de prática odontológica
+// Este componente é usado para coletar informações detalhadas de dentistas interessados
 export default function ContactModal({ onClose }: ContactModalProps) {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -119,7 +122,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
               />
               <input
                 type="text"
@@ -128,7 +131,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
               />
             </div>
 
@@ -139,7 +142,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               value={formData.mobile}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <input
               type="email"
@@ -148,7 +151,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <input
               type="text"
@@ -157,7 +160,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               value={formData.practiceName}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <input
               type="url"
@@ -165,7 +168,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               placeholder="Website URL"
               value={formData.website}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
 
             <input
@@ -174,7 +177,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               placeholder="Street address"
               value={formData.streetAddress}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
@@ -183,7 +186,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 placeholder="City"
                 value={formData.city}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
               />
               <input
                 type="text"
@@ -191,7 +194,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
                 placeholder="State/Region"
                 value={formData.state}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
               />
             </div>
 
@@ -204,7 +207,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               placeholder="What is your practice's annual collections?"
               value={formData.annualCollections}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <input
               type="text"
@@ -212,7 +215,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               placeholder="Number of practice locations"
               value={formData.practiceLocations}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <input
               type="text"
@@ -220,7 +223,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               placeholder="Number of dentists in your practice"
               value={formData.numberOfDentists}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
 
             <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">
@@ -232,7 +235,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               value={formData.hopes}
               onChange={handleInputChange}
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
             <textarea
               name="contributions"
@@ -240,7 +243,7 @@ export default function ContactModal({ onClose }: ContactModalProps) {
               value={formData.contributions}
               onChange={handleInputChange}
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-black"
             />
 
             <button

@@ -3,7 +3,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+// Componente de seção de cadastro para a Comunidade Terra Ventos
+// Este componente contém um formulário completo para novos membros se inscreverem
 export default function SignupSection() {
+  // Estado para armazenar os dados do formulário
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -14,11 +17,13 @@ export default function SignupSection() {
     aceitoComunicacoes: false,
   });
 
+  // Estados para controlar o envio do formulário
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
 
+  // Função para lidar com mudanças nos campos do formulário
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -30,14 +35,16 @@ export default function SignupSection() {
     }));
   };
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simular envio do formulário
+    // Simular envio do formulário (aqui você integraria com sua API)
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       setSubmitStatus("success");
+      // Limpar formulário após sucesso
       setTimeout(() => {
         setSubmitStatus("idle");
         setFormData({
@@ -60,7 +67,7 @@ export default function SignupSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Cabeçalho da seção com título e descrição */}
         <div className="text-center mb-12">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-primary-500 mb-4 font-heading"
@@ -86,7 +93,7 @@ export default function SignupSection() {
           </motion.p>
         </div>
 
-        {/* Form Container */}
+        {/* Container do formulário com animações */}
         <motion.div
           className="bg-white rounded-2xl shadow-xl p-8"
           initial={{ opacity: 0, y: 50 }}
@@ -95,7 +102,7 @@ export default function SignupSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Success Message */}
+            {/* Mensagem de sucesso quando o formulário é enviado */}
             {submitStatus === "success" && (
               <motion.div
                 className="bg-accent-100 border border-accent-400 text-accent-700 px-4 py-3 rounded-lg mb-6"
@@ -120,7 +127,7 @@ export default function SignupSection() {
               </motion.div>
             )}
 
-            {/* Error Message */}
+            {/* Mensagem de erro quando há problemas no envio */}
             {submitStatus === "error" && (
               <motion.div
                 className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6"
@@ -144,9 +151,9 @@ export default function SignupSection() {
               </motion.div>
             )}
 
-            {/* Form Fields */}
+            {/* Campos do formulário organizados em grid responsivo */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Nome */}
+              {/* Campo de nome completo */}
               <div>
                 <label
                   htmlFor="nome"
@@ -162,7 +169,7 @@ export default function SignupSection() {
                   onChange={handleInputChange}
                   placeholder="Seu nome completo"
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                 />
               </div>
 
@@ -182,7 +189,7 @@ export default function SignupSection() {
                   onChange={handleInputChange}
                   placeholder="seu@email.com"
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                 />
               </div>
 
@@ -202,7 +209,7 @@ export default function SignupSection() {
                   onChange={handleInputChange}
                   placeholder="+55 (DDD) 9XXXX-XXXX"
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                 />
               </div>
 
@@ -221,7 +228,7 @@ export default function SignupSection() {
                   value={formData.paisEstado}
                   onChange={handleInputChange}
                   placeholder="Ex: Brasil / CE"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors text-black"
                 />
               </div>
 
@@ -240,7 +247,7 @@ export default function SignupSection() {
                     value={formData.faixaInvestimento}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white text-black"
                   >
                     <option value="">Selecione</option>
                     <option value="ate-100k">Até R$ 100.000</option>
@@ -282,7 +289,7 @@ export default function SignupSection() {
                     value={formData.interessePrincipal}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500 transition-colors appearance-none bg-white text-black"
                   >
                     <option value="">Selecione</option>
                     <option value="investimento">Investimento</option>
