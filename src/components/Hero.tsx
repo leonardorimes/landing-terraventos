@@ -94,7 +94,7 @@ export default function Hero({ onContactClick }: HeroProps) {
           {currentVideo && (
             <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
               <iframe
-                className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
+                className="absolute top-1/2 left-1/2 w-full h-full min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 object-cover"
                 src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1`}
                 title="Background Video"
                 frameBorder="0"
@@ -152,10 +152,10 @@ export default function Hero({ onContactClick }: HeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 z-15"></div>
 
         {/* Content */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-0 flex items-center justify-center min-h-screen">
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center">
           <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
-              className="text-white space-y-8"
+              className="text-white space-y-6 md:space-y-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -228,7 +228,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center mt-8 md:mt-0 w-full"
+                className="flex flex-col sm:flex-row gap-4 justify-center mt-6 md:mt-8 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
