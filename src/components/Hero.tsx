@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AnimatedText from "./AnimatedText";
 import LoadingScreen from "./LoadingScreen";
 import ResizeLoading from "./ResizeLoading";
@@ -13,9 +13,10 @@ interface HeroProps {
 
 export default function Hero({ onContactClick }: HeroProps) {
   const [currentVideo, setCurrentVideo] = useState<string>("");
+  const [previousVideo, setPreviousVideo] = useState<string>("");
 
   // Vídeo fixo do YouTube
-  const videoId = "PPjuC6uD8xM"; // Vídeo fixo
+  const videoId = "C1MRkfuTtOI"; // Vídeo fixo do YouTube
 
   // Estado para controlar o loading screen
   const [isLoading, setIsLoading] = useState(true);
@@ -40,9 +41,9 @@ export default function Hero({ onContactClick }: HeroProps) {
     setIsLoading(false);
   };
 
-  // Carregar vídeo fixo
+  // Carregar vídeo fixo do YouTube
   useEffect(() => {
-    console.log("🎬 Vídeo fixo carregado:", videoId);
+    console.log("🎬 Carregando vídeo do YouTube:", videoId);
     setCurrentVideo(videoId);
     setIsVideoLoading(true);
     setIsVideoPlaying(false);
@@ -91,7 +92,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
           {/* Vídeo do YouTube */}
           {currentVideo && (
-            <div className="absolute inset-0 w-full h-full z-20 overflow-hidden">
+            <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
               <iframe
                 className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
                 src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1`}
@@ -145,14 +146,14 @@ export default function Hero({ onContactClick }: HeroProps) {
         </div>
 
         {/* Dark Overlay for Text Visibility */}
-        <div className="absolute inset-0 bg-black/20 z-10"></div>
+        <div className="absolute inset-0 bg-black/10 z-10"></div>
 
         {/* Subtle gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30 z-15"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 z-15"></div>
 
         {/* Content */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-0">
-          <div className="text-center max-w-4xl mx-auto">
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8 md:py-0 flex items-center justify-center min-h-screen">
+          <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
               className="text-white space-y-8"
               initial={{ opacity: 0, y: 20 }}
@@ -227,7 +228,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center mt-8 md:mt-0"
+                className="flex flex-col sm:flex-row gap-4 justify-center mt-8 md:mt-0 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -238,7 +239,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               >
                 <motion.button
                   onClick={onContactClick}
-                  className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-avenir"
+                  className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -246,7 +247,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                 </motion.button>
                 <motion.a
                   href="#por-que-fazer-parte"
-                  className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir"
+                  className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
