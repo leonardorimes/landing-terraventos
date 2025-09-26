@@ -23,14 +23,6 @@ export default function Hero({ onContactClick }: HeroProps) {
     "/video/video3.MP4", // Maior (427MB)
   ];
 
-  // Cache de vídeos para melhor performance
-  const [videoCache, setVideoCache] = useState<Map<string, HTMLVideoElement>>(
-    new Map()
-  );
-
-  // Preload do próximo vídeo
-  const [preloadedVideo, setPreloadedVideo] = useState<string>("");
-
   // Estado para controlar o loading screen
   const [isLoading, setIsLoading] = useState(true);
 
@@ -71,7 +63,7 @@ export default function Hero({ onContactClick }: HeroProps) {
     setPreviousVideo(randomVideo);
   }, []);
 
-  // Função para carregar vídeo com otimizações
+  // Função para carregar vídeo
   const loadVideo = async () => {
     if (!currentVideo || !videoRef.current) return;
 
@@ -81,18 +73,6 @@ export default function Hero({ onContactClick }: HeroProps) {
     setVideoError(false);
 
     try {
-      // Verificar se vídeo já está em cache
-      if (videoCache.has(currentVideo)) {
-        console.log("📦 Vídeo encontrado no cache");
-        const cachedVideo = videoCache.get(currentVideo);
-        if (cachedVideo && videoRef.current) {
-          videoRef.current.src = cachedVideo.src;
-          videoRef.current.currentTime = 0;
-          await videoRef.current.play();
-          return;
-        }
-      }
-
       // Reset do vídeo
       videoRef.current.currentTime = 0;
       videoRef.current.load();
@@ -102,16 +82,6 @@ export default function Hero({ onContactClick }: HeroProps) {
         "canplay",
         async () => {
           try {
-            // Cache o vídeo para futuras reproduções
-            if (videoRef.current) {
-              const newCache = new Map(videoCache);
-              newCache.set(
-                currentVideo,
-                videoRef.current.cloneNode() as HTMLVideoElement
-              );
-              setVideoCache(newCache);
-            }
-
             await videoRef.current?.play();
           } catch (playError) {
             console.log(
@@ -133,42 +103,6 @@ export default function Hero({ onContactClick }: HeroProps) {
       loadVideo();
     }
   }, [currentVideo]);
-
-  // Função para preload do próximo vídeo
-  const preloadNextVideo = (currentVideo: string) => {
-    const nextVideo = getRandomVideo();
-    if (nextVideo !== currentVideo) {
-      console.log("🔄 Preload do próximo vídeo:", nextVideo);
-      setPreloadedVideo(nextVideo);
-
-      // Criar elemento de vídeo para preload
-      const preloadVideo = document.createElement("video");
-      preloadVideo.src = nextVideo;
-      preloadVideo.preload = "metadata";
-      preloadVideo.muted = true;
-      preloadVideo.style.display = "none";
-      document.body.appendChild(preloadVideo);
-
-      // Limpar após um tempo
-      setTimeout(() => {
-        if (document.body.contains(preloadVideo)) {
-          document.body.removeChild(preloadVideo);
-        }
-      }, 30000); // 30 segundos
-    }
-  };
-
-  // Função para trocar vídeo
-  const changeVideo = () => {
-    const newVideo = getRandomVideo();
-    console.log("🔄 Trocando para vídeo:", newVideo);
-    setPreviousVideo(currentVideo);
-    setCurrentVideo(newVideo);
-    setIsVideoPlaying(false);
-
-    // Preload do próximo vídeo
-    preloadNextVideo(newVideo);
-  };
 
   // Handlers do vídeo
   const handleVideoLoadStart = () => {
@@ -192,11 +126,6 @@ export default function Hero({ onContactClick }: HeroProps) {
     console.log("▶️ Vídeo reproduzindo");
     setIsVideoPlaying(true);
     setIsVideoLoading(false);
-
-    // Iniciar preload do próximo vídeo quando o atual começar a reproduzir
-    if (currentVideo) {
-      preloadNextVideo(currentVideo);
-    }
   };
 
   const handleVideoPause = () => {
@@ -205,10 +134,13 @@ export default function Hero({ onContactClick }: HeroProps) {
   };
 
   const handleVideoEnded = () => {
-    console.log("🏁 Vídeo terminou");
+    console.log("🏁 Vídeo terminou - reiniciando loop");
     setIsVideoPlaying(false);
-    // Automatically change to next video when current ends
-    changeVideo();
+    // Reiniciar o mesmo vídeo em loop
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(console.error);
+    }
   };
 
   const handleVideoError = (
@@ -296,12 +228,6 @@ export default function Hero({ onContactClick }: HeroProps) {
                     className="bg-accent-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-accent-600 transition-colors text-sm"
                   >
                     🔄 Tentar novamente
-                  </button>
-                  <button
-                    onClick={changeVideo}
-                    className="bg-white/20 text-white px-4 py-2 rounded-lg font-medium hover:bg-white/30 transition-colors text-sm"
-                  >
-                    🎬 Outro vídeo
                   </button>
                 </div>
               </div>
