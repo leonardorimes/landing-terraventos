@@ -185,7 +185,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                 }}
               >
                 <AnimatedText delay={0.2} className="block">
-                  Faça parte da comunidade
+                  {t("signup.title").split(" ").slice(0, -2).join(" ")}
                 </AnimatedText>
                 <motion.span
                   className="text-accent-500 block font-breathing font-breathing-shadow-dark"
@@ -197,7 +197,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                     ease: [0.25, 0.46, 0.45, 0.94],
                   }}
                 >
-                  Terra Ventos
+                  {t("hero.title")}
                 </motion.span>
               </motion.h1>
 
@@ -211,7 +211,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                  Junte-se a uma rede exclusiva de investidores, atletas e amantes do litoral nordestino. E tenha acesso antecipado a oportunidades imobiliárias, curadoria jurídica e um lifestyle conectado ao vento e ao mar.
+                  {t("signup.subtitle")}
               </motion.h2>
 
 
