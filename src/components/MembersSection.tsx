@@ -1,3 +1,5 @@
+import Logo from "./Logo";
+
 export default function MembersSection() {
   const members = [
     {
@@ -15,8 +17,15 @@ export default function MembersSection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-white relative overflow-hidden">
+      {/* Logo como sombra de fundo */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="opacity-4 scale-[2.8]">
+          <Logo size="lg" color="default" />
+        </div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
             Meet a few of our members

@@ -8,14 +8,6 @@ import ResizeLoading from "./ResizeLoading";
 import { useResizeLoading } from "../hooks/useResizeLoading";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Declaração global do YouTube Player API
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
-
 // Interface para as props do componente Hero
 interface HeroProps {
   onContactClick: () => void;
@@ -28,6 +20,7 @@ export default function Hero({ onContactClick }: HeroProps) {
 
   // Estados para controle de vídeos
   const [currentVideo, setCurrentVideo] = useState<string>("");
+  const [previousVideo, setPreviousVideo] = useState<string>("");
 
   // ID do vídeo fixo do YouTube que será exibido como fundo
   const videoId = "C1MRkfuTtOI"; // Vídeo fixo do YouTube
@@ -38,11 +31,16 @@ export default function Hero({ onContactClick }: HeroProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false); // Reprodução do vídeo
   const [videoError, setVideoError] = useState(false); // Erro no carregamento do vídeo
 
-  // Refs para controle do player
-  const playerRef = useRef<any>(null);
-  const playerReadyRef = useRef(false);
-
   // Hook personalizado para detectar redimensionamento significativo da janela
+
+
+
+
+
+
+
+
+
   const isResizeLoading = useResizeLoading({
     threshold: 25, // 25% de mudança para triggerar o loading
     duration: 3000, // 3 segundos de duração do loading
@@ -53,111 +51,41 @@ export default function Hero({ onContactClick }: HeroProps) {
     setIsLoading(false);
   };
 
-  // Função para verificar se pode finalizar o loading
+  // Effect para carregar o vídeo fixo do YouTube ao montar o componente
   useEffect(() => {
-    if (!isVideoLoading && isLoading) {
-      // Pequeno delay para garantir que tudo está estável
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [isVideoLoading, isLoading]);
+    console.log("🎬 Carregando vídeo do YouTube:", videoId);
+    setCurrentVideo(videoId);
+    setIsVideoLoading(true);
+    setIsVideoPlaying(false);
+    setVideoError(false);
+  }, []);
 
-  // Função para inicializar o YouTube Player API
-  const initializeYouTubeAPI = () => {
-    if (window.YT && window.YT.Player) {
-      console.log("🎬 YouTube API já carregada");
-      createPlayer();
-    } else {
-      console.log("🎬 Carregando YouTube API...");
-
-      // Carregar a API do YouTube
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-      // Callback quando a API estiver pronta
-      window.onYouTubeIframeAPIReady = () => {
-        console.log("✅ YouTube API carregada com sucesso");
-        createPlayer();
-      };
-    }
-  };
-
-  // Função para criar o player
-  const createPlayer = () => {
-    if (playerRef.current) {
-      playerRef.current.destroy();
-    }
-
-    console.log("🎬 Criando player do YouTube para vídeo:", videoId);
+  // Funções para lidar com eventos do vídeo
+  const handleVideoLoadStart = () => {
+    console.log("🔄 Carregamento do iframe iniciado");
     setIsVideoLoading(true);
     setVideoError(false);
-
-    playerRef.current = new window.YT.Player("youtube-player", {
-      height: "100%",
-      width: "100%",
-      videoId: videoId,
-      playerVars: {
-        autoplay: 1, // Reproduzir automaticamente
-        mute: 1, // Mutado por padrão
-        loop: 1, // Loop automático
-        controls: 0, // Controles customizados
-        showinfo: 0,
-        rel: 0,
-        modestbranding: 1,
-        fs: 0, // Sem fullscreen
-        disablekb: 1, // Sem controles de teclado
-        playlist: videoId,
-      },
-      events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange,
-        onError: onPlayerError,
-      },
-    });
-  };
-
-  // Event handlers do YouTube Player
-  const onPlayerReady = (event: any) => {
-    console.log("✅ Player pronto");
-    playerReadyRef.current = true;
+    // Simular carregamento completo após um tempo (para UX)
+    setTimeout(() => {
     setIsVideoLoading(false);
-    setIsVideoPlaying(true);
-  };
-
-  const onPlayerStateChange = (event: any) => {
-    console.log("🎬 Estado do player mudou:", event.data);
-
-    // YouTube Player States: -1 (unstarted), 0 (ended), 1 (playing), 2 (paused), 3 (buffering), 5 (cued)
-    if (event.data === 1) {
-      // Playing
       setIsVideoPlaying(true);
-    } else if (event.data === 2 || event.data === 3) {
-      // Paused or Buffering
-      setIsVideoPlaying(false);
-    }
+    }, 2000);
   };
 
-  const onPlayerError = (event: any) => {
-    console.error("❌ Erro no player do YouTube:", event.data);
+  // Função para lidar com erros no carregamento do vídeo
+  const handleVideoError = (
+    e: React.SyntheticEvent<HTMLIFrameElement, Event>
+  ) => {
+    console.error("❌ Erro ao carregar vídeo do YouTube:", e);
+    console.error("❌ ID do vídeo:", currentVideo);
+    console.error(
+      "❌ URL completa:",
+      `https://www.youtube.com/embed/${currentVideo}`
+    );
     setIsVideoLoading(false);
     setIsVideoPlaying(false);
     setVideoError(true);
   };
-
-  // Effect para inicializar o player quando o componente montar
-  useEffect(() => {
-    initializeYouTubeAPI();
-
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.destroy();
-      }
-    };
-  }, [videoId]);
 
   return (
     <>
@@ -174,13 +102,22 @@ export default function Hero({ onContactClick }: HeroProps) {
           {/* Fundo preto como fallback caso o vídeo não carregue */}
           <div className="absolute inset-0 bg-black"></div>
 
-          {/* Container do YouTube Player */}
-          <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-            <div
-              id="youtube-player"
+          {/* Iframe do vídeo do YouTube com configurações otimizadas */}
+          {currentVideo && (
+            <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
+              <iframe
               className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
+                src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1`}
+                title="Background Video"
+                frameBorder="0"
+                allow="autoplay; encrypted-media; fullscreen"
+                allowFullScreen={false}
+                onLoad={handleVideoLoadStart}
+                onError={handleVideoError}
+                loading="eager"
             />
           </div>
+          )}
 
           {/* Overlay de loading durante carregamento do vídeo */}
           {isVideoLoading && (
@@ -193,70 +130,52 @@ export default function Hero({ onContactClick }: HeroProps) {
                 <p className="text-sm text-white/80">
                   {t("hero.loading.subtitle")}
                 </p>
-                <div className="text-xs text-white/60 mt-2 space-y-1">
-                  <p>ID: {videoId}</p>
-                  <p>Status: Carregando player...</p>
-                </div>
               </div>
             </div>
           )}
 
-          {/* Fallback caso o vídeo não carregue */}
+          {/* Tela de erro caso o vídeo não carregue */}
           {videoError && (
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900 flex items-center justify-center z-20">
-              <div className="text-center text-white">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-8 h-8"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
+            <div className="absolute inset-0 bg-black/90 flex items-center justify-center z-20">
+              <div className="text-center text-white max-w-md mx-auto px-4">
+                <div className="text-6xl mb-4">⚠️</div>
                 <p className="text-xl font-semibold mb-2">
                   {t("hero.video.error")}
                 </p>
-                <p className="text-sm text-white/80">
+                 <p className="text-sm text-white/80 mb-2">
                   {t("hero.video.error.subtitle")}
                 </p>
+                <div className="flex gap-2 justify-center">
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="bg-accent-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-accent-600 transition-colors text-sm"
+                  >
+                    🔄 Recarregar página
+                  </button>
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Overlay escuro para melhorar a visibilidade do texto */}
-        <div className="absolute inset-0 bg-black/10 z-10"></div>
+         {/* Overlay claro para melhorar a visibilidade do texto */}
+         <div className="absolute inset-0 bg-black/5 z-10"></div>
 
         {/* Gradiente sutil para melhorar a legibilidade do texto */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15 z-15"></div>
+         <div className="absolute inset-0 bg-gradient-to-b from-black/2 via-transparent to-black/8 z-15"></div>
 
         {/* Container principal do conteúdo */}
         <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center py-8 md:py-0">
           <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
-              className="text-white space-y-4 md:space-y-8"
+              className="text-white space-y-2 md:space-y-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              {/* Badge de destaque da comunidade */}
-              <motion.div
-                className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium border border-white/20"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <div className="w-2 h-2 bg-accent-500 rounded-full mr-3"></div>
-                {t("hero.exclusive")}
-              </motion.div>
 
               <motion.h1
-                className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight font-breathing font-breathing-shadow-dark drop-shadow-2xl"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-breathing font-breathing-shadow-dark drop-shadow-2xl mb-1"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -266,7 +185,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                 }}
               >
                 <AnimatedText delay={0.2} className="block">
-                  {t("hero.community")}
+                  Faça parte da comunidade
                 </AnimatedText>
                 <motion.span
                   className="text-accent-500 block font-breathing font-breathing-shadow-dark"
@@ -278,107 +197,116 @@ export default function Hero({ onContactClick }: HeroProps) {
                     ease: [0.25, 0.46, 0.45, 0.94],
                   }}
                 >
-                  {t("hero.title")}
+                  Terra Ventos
                 </motion.span>
               </motion.h1>
 
               <motion.h2
-                className="text-xl md:text-3xl lg:text-4xl font-semibold text-white/95 drop-shadow-lg font-avenir"
+                className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/95 drop-shadow-lg font-avenir mb-2"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 1.2,
-                  delay: 0.5,
+                  delay: 1,
+                  duration: 1,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                {t("hero.subtitle")}
+                  Junte-se a uma rede exclusiva de investidores, atletas e amantes do litoral nordestino. E tenha acesso antecipado a oportunidades imobiliárias, curadoria jurídica e um lifestyle conectado ao vento e ao mar.
               </motion.h2>
 
-              <motion.p
-                className="text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto font-avenir"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 1.2,
-                  delay: 0.7,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-              >
-                {t("hero.description")}
-              </motion.p>
 
-              {/* Botões de Call-to-Action */}
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                className="flex flex-col sm:flex-row gap-4 justify-center mt-4 md:mt-8 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
+                  delay: 1.6,
                   duration: 1.2,
-                  delay: 0.9,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
                 <motion.button
                   onClick={onContactClick}
-                  className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 font-avenir"
+                  className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {t("hero.cta")}
                 </motion.button>
-
-                <motion.button
-                  onClick={onContactClick}
-                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-black transition-all duration-200 font-avenir"
+                  <motion.a
+                    href="#por-que-fazer-parte"
+                    className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {t("hero.discover")}
-                </motion.button>
-              </motion.div>
-
-              {/* Estatísticas da comunidade */}
-              <motion.div
-                className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 1.2,
-                  delay: 1.1,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-              >
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent-500 mb-2 font-breathing">
-                    {t("stats.value")}
-                  </div>
-                  <div className="text-sm text-white/80 font-avenir">
-                    {t("stats.investment")}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent-500 mb-2 font-breathing">
-                    500+
-                  </div>
-                  <div className="text-sm text-white/80 font-avenir">
-                    {t("stats.members")}
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent-500 mb-2 font-breathing">
-                    15+
-                  </div>
-                  <div className="text-sm text-white/80 font-avenir">
-                    {t("stats.countries")}
-                  </div>
-                </div>
+                  </motion.a>
               </motion.div>
             </motion.div>
           </div>
         </div>
+
+        {/* Estatísticas flutuantes - Ocultas no mobile para evitar sobreposição */}
+        <motion.div
+          className="hidden lg:block absolute top-8 right-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
+          initial={{ opacity: 0, scale: 0.8, y: -20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+        >
+             <div className="text-center text-white">
+               <div className="text-3xl font-bold text-accent-500">500+</div>
+               <div className="text-sm text-white/80">Investidores Ativos</div>
+             </div>
+        </motion.div>
+
+        {/* Segunda estatística flutuante */}
+        <motion.div
+          className="hidden lg:block absolute bottom-8 left-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/20"
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          whileHover={{ scale: 1.05 }}
+        >
+             <div className="text-center text-white">
+               <div className="text-3xl font-bold text-accent-500">{t("stats.value")}</div>
+               <div className="text-sm text-white/80">{t("stats.volume")}</div>
+             </div>
+        </motion.div>
+
+        {/* Elementos decorativos flutuantes - Ocultos no mobile */}
+        <motion.div
+          className="hidden lg:block absolute top-1/4 left-8 w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center shadow-lg"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 1 }}
+          whileHover={{ scale: 1.1, rotate: 10 }}
+        >
+          <svg
+            className="w-6 h-6 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+        </motion.div>
+
+        {/* Segundo elemento decorativo flutuante */}
+        <motion.div
+          className="hidden lg:block absolute bottom-1/4 right-8 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shadow-lg backdrop-blur-sm"
+          initial={{ scale: 0, rotate: 180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          whileHover={{ scale: 1.1, rotate: -10 }}
+        >
+          <svg
+            className="w-5 h-5 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          </svg>
+        </motion.div>
       </section>
     </>
   );

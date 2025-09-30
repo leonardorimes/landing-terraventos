@@ -1,5 +1,6 @@
 import Logo from "./Logo";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -7,30 +8,38 @@ export default function Footer() {
   return (
     <footer className="bg-primary-500 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Seção principal com logo e navegação */}
+        {/* Seção do logo - mais proeminente */}
+        <motion.div 
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex flex-col items-center space-y-4">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Logo size="lg" color="white" className="h-40 w-auto" />
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Seção principal com navegação */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-8">
-          {/* Logo e navegação */}
+          {/* Navegação - apenas texto, sem links */}
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-8 mb-6 lg:mb-0">
-            <Logo size="md" color="white" />
             <div className="flex flex-wrap gap-4 md:gap-8">
-              <a
-                href="#sobre"
-                className="text-gray-300 hover:text-white transition-colors"
-              >
+              <span className="text-gray-300">
                 {t("footer.about")}
-              </a>
-              <a
-                href="#oportunidades"
-                className="text-gray-300 hover:text-white transition-colors"
-              >
+              </span>
+              <span className="text-gray-300">
                 {t("footer.opportunities")}
-              </a>
-              <a
-                href="#lifestyle"
-                className="text-gray-300 hover:text-white transition-colors"
-              >
+              </span>
+              <span className="text-gray-300">
                 {t("footer.lifestyle")}
-              </a>
+              </span>
             </div>
           </div>
 

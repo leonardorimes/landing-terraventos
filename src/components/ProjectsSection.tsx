@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Logo from "./Logo";
 
 interface Project {
   id: number;
@@ -158,8 +159,15 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200 relative overflow-hidden">
+      {/* Logo como sombra de fundo */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="opacity-6 scale-[2.2]">
+          <Logo size="lg" color="default" />
+        </div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <motion.h2

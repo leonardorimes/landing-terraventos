@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Logo from "./Logo";
 
 export default function FounderSection() {
   const { t } = useLanguage();
@@ -14,9 +15,16 @@ export default function FounderSection() {
       color="gray"
       direction="up"
       delay={0.1}
-      className="pt-32 pb-20 bg-stone-50"
+      className="pt-32 pb-20 bg-stone-50 relative overflow-hidden"
     >
-      <div id="sobre" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Logo como sombra de fundo */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="opacity-5 scale-[2]">
+          <Logo size="lg" color="default" />
+        </div>
+      </div>
+      
+      <div id="sobre" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left Side - Profile */}

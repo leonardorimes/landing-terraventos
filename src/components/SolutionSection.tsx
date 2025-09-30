@@ -1,10 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SolutionSection() {
   const { t } = useLanguage();
+  const [currentBackground, setCurrentBackground] = useState(0);
+
+  // Array de backgrounds que se alternam (imagens locais)
+  const backgrounds = [
+    "/images/conections/01.jpg",
+    "/images/conections/02.jpg", 
+    "/images/conections/03.jpg",
+    "/images/conections/04.jpg",
+    "/images/conections/05.jpg",
+  ];
+
+  // Função para trocar background automaticamente
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBackground((prev) => (prev + 1) % backgrounds.length);
+    }, 4000); // Troca a cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, [backgrounds.length]);
 
   // Função para scroll suave até o formulário
   const scrollToForm = () => {
@@ -27,13 +47,27 @@ export default function SolutionSection() {
       viewport={{ once: true }}
       transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
     >
-      {/* Background Image with People */}
+      {/* Background Images com Transição Suave */}
       <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&h=1080&fit=crop&crop=center"
-          alt="Comunidade Terra Ventos"
-          className="w-full h-full object-cover"
-        />
+        {backgrounds.map((bg, index) => (
+          <motion.img
+            key={index}
+            src={bg}
+            alt="Comunidade Terra Ventos"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: currentBackground === index ? 1 : 0,
+              scale: currentBackground === index ? 1 : 1.1
+            }}
+            transition={{ 
+              duration: 1.5, 
+              ease: "easeInOut",
+              opacity: { duration: 1.5 },
+              scale: { duration: 1.5 }
+            }}
+          />
+        ))}
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40"></div>
       </div>

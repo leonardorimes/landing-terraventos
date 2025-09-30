@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import AnimatedCounter from "./AnimatedCounter";
+import Logo from "./Logo";
 
 export default function StatsSection() {
   const stats = [
@@ -34,9 +35,16 @@ export default function StatsSection() {
       color="blue"
       direction="scale"
       delay={0.4}
-      className="py-20 bg-gradient-to-br from-primary-500 to-primary-600 text-white"
+      className="py-20 bg-gradient-to-br from-primary-500 to-primary-600 text-white relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Logo como sombra de fundo */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="opacity-8 scale-[2.5]">
+          <Logo size="lg" color="white" />
+        </div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {stats.map((stat, index) => (
             <motion.div
