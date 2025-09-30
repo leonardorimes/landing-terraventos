@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./Logo";
+import LanguageSelector from "./LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface NavbarProps {
   onContactClick: () => void;
@@ -10,6 +12,7 @@ interface NavbarProps {
 
 export default function Navbar({ onContactClick }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -46,10 +49,10 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {[
-                { id: "por-que-fazer-parte", text: "Por que fazer parte" },
-                { id: "nossa-missao", text: "Nossa Missão" },
-                { id: "fundador", text: "Fundador" },
-                { id: "faq", text: "FAQ" },
+                { id: "por-que-fazer-parte", text: t("nav.why-join") },
+                { id: "nossa-missao", text: t("nav.mission") },
+                { id: "fundador", text: t("nav.founder") },
+                { id: "faq", text: t("nav.faq") },
               ].map((link, index) => (
                 <motion.button
                   key={link.text}
@@ -73,13 +76,15 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Junte-se à Comunidade
+                {t("nav.join-community")}
               </motion.button>
+              <LanguageSelector />
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSelector />
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-primary-500 hover:text-accent-500 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-500"
@@ -130,10 +135,10 @@ export default function Navbar({ onContactClick }: NavbarProps) {
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/90 backdrop-blur-md border-t border-white/20">
               {[
-                { id: "por-que-fazer-parte", text: "Por que fazer parte" },
-                { id: "nossa-missao", text: "Nossa Missão" },
-                { id: "fundador", text: "Fundador" },
-                { id: "faq", text: "FAQ" },
+                { id: "por-que-fazer-parte", text: t("nav.why-join") },
+                { id: "nossa-missao", text: t("nav.mission") },
+                { id: "fundador", text: t("nav.founder") },
+                { id: "faq", text: t("nav.faq") },
               ].map((link, index) => (
                 <motion.button
                   key={link.text}
@@ -155,7 +160,7 @@ export default function Navbar({ onContactClick }: NavbarProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                Junte-se à Comunidade
+                {t("nav.join-community")}
               </motion.button>
             </div>
           </motion.div>

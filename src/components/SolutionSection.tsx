@@ -1,8 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SolutionSection() {
+  const { t } = useLanguage();
+
+  // Função para scroll suave até o formulário
+  const scrollToForm = () => {
+    const formSection = document.getElementById("signup-section");
+    if (formSection) {
+      formSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <motion.section
       id="nossa-missao"
@@ -33,7 +47,7 @@ export default function SolutionSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 font-diodrum text-white"
+            className="text-4xl md:text-5xl font-bold mb-6 font-breathing font-breathing-shadow-dark text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -43,7 +57,7 @@ export default function SolutionSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            FORGE CONEXÕES INESQUECÍVEIS
+            {t("solution.connections.title")}
           </motion.h2>
 
           <motion.p
@@ -57,13 +71,12 @@ export default function SolutionSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            A Terra Ventos torna o litoral nordestino sem fronteiras para você.
-            Você criará conexões profundas e pessoais com outros investidores
-            que entendem seus desafios e conquistas.
+            {t("solution.connections.description")}
           </motion.p>
 
           <motion.button
-            className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 font-avenir"
+            onClick={scrollToForm}
+            className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 font-avenir cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -75,7 +88,7 @@ export default function SolutionSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            VEJA COMO FUNCIONA
+            {t("solution.see.how")}
           </motion.button>
         </div>
       </div>

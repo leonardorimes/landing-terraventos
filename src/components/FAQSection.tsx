@@ -3,35 +3,28 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   const faqs = [
     {
-      question: "Quanto custa entrar na Comunidade Terra Ventos?",
-      answer:
-        "É gratuito. Cadastre-se e receba oportunidades alinhadas ao seu perfil.",
+      question: t("faq.question1"),
+      answer: t("faq.answer1"),
     },
     {
-      question: "Sou estrangeiro: posso comprar no Brasil?",
-      answer:
-        "Sim. Nosso time jurídico acompanha todo o processo documental e fiscal.",
+      question: t("faq.question2"),
+      answer: t("faq.answer2"),
     },
     {
-      question: "Como vocês garantem segurança jurídica?",
-      answer:
-        "Curadoria rigorosa, matrícula verificada e assessoria até a transferência.",
+      question: t("faq.question3"),
+      answer: t("faq.answer3"),
     },
     {
-      question: "Vocês atuam apenas no Ceará?",
-      answer:
-        "Foco no litoral cearense, com projetos selecionados internacionais (ex: Matanzas, Chile).",
-    },
-    {
-      question: "Posso visitar os imóveis?",
-      answer:
-        "Sim. Agendamos tours presenciais e virtuais conforme sua disponibilidade.",
+      question: t("faq.question4"),
+      answer: t("faq.answer4"),
     },
   ];
 
@@ -51,13 +44,13 @@ export default function FAQSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-heading"
+            className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            Perguntas Frequentes
+            {t("faq.title")}
           </motion.h2>
           <motion.p
             className="text-xl text-secondary-500"
@@ -70,7 +63,7 @@ export default function FAQSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            Tire suas dúvidas sobre a Comunidade Terra Ventos
+            {t("faq.subtitle")}
           </motion.p>
         </div>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +20,7 @@ export const metadata: Metadata = {
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
-    apple: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    apple: [{ url: "/favicon.svg", type: "image/svg+xml" }],
   },
   openGraph: {
     title: "Terra Ventos - Investimento Imobiliário no Litoral do Ceará",
@@ -46,7 +45,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} w-full max-w-full overflow-x-hidden`}>{children}</body>
+      <body
+        className={`${inter.className} w-full max-w-full overflow-x-hidden`}
+      >
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

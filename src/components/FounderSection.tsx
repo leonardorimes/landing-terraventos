@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function FounderSection() {
+  const { t } = useLanguage();
+
   return (
     <AnimatedSection
       id="fundador"
@@ -43,7 +46,7 @@ export default function FounderSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Bernardo Carvalho Wertheim
+              {t("founder.name")}
             </motion.h3>
             <motion.p
               className="text-lg text-accent-500 font-medium"
@@ -52,7 +55,7 @@ export default function FounderSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Fundador
+              {t("founder.title")}
             </motion.p>
           </motion.div>
 
@@ -65,13 +68,13 @@ export default function FounderSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h2
-              className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-heading"
+              className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              Quem está por trás da Terra Ventos
+              {t("founder.heading")}
             </motion.h2>
             <motion.p
               className="text-xl text-secondary-500 leading-relaxed"
@@ -80,10 +83,7 @@ export default function FounderSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Empreendedor com carreira internacional (ex-Bloomberg e
-              Accenture), fundou a Terra Ventos com a missão de remodelar o
-              mercado imobiliário litorâneo unindo impacto social, lifestyle e
-              segurança.
+              {t("founder.description")}
             </motion.p>
           </motion.div>
         </div>
@@ -132,12 +132,11 @@ export default function FounderSection() {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-primary-500">
-                  Nossa experiência
+                  {t("founder.experience.title")}
                 </h3>
               </div>
               <p className="text-secondary-500 text-lg leading-relaxed font-body">
-                15+ anos em scouting e desenvolvimento no litoral cearense, com
-                parcerias locais e curadoria rigorosa.
+                {t("founder.experience.description")}
               </p>
             </div>
           </motion.div>

@@ -11,6 +11,8 @@ import FAQSection from "@/components/FAQSection";
 import SignupSection from "@/components/SignupSection";
 import Footer from "@/components/Footer";
 import SignupModal from "@/components/SignupModal";
+import DynamicMeta from "@/components/DynamicMeta";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +27,7 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <DynamicMeta />
       <Navbar onContactClick={openModal} />
       <Hero onContactClick={openModal} />
       <ProblemSection />
@@ -35,6 +38,7 @@ export default function Home() {
       <Footer />
 
       <SignupModal isOpen={isModalOpen} onClose={closeModal} />
+      <WhatsAppButton />
     </motion.main>
   );
 }

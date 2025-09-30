@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ProblemSection() {
+  const { t } = useLanguage();
+
   const benefits = [
     {
       icon: (
@@ -17,69 +20,12 @@ export default function ProblemSection() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M4 6h16M4 10h16M4 14h16"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
       ),
-      title: "Acesso exclusivo",
-      description: "Receba oportunidades antes do mercado.",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      ),
-      title: "Segurança jurídica",
-      description: "Terrenos 100% regularizados e matricula verificada.",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-          />
-        </svg>
-      ),
-      title: "Valorização & insights",
-      description: "Curadoria baseada em dados e tendência de turismo.",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-      title: "Networking global",
-      description: "Investidores BR/INTL, kite e nomades digitais.",
+      title: t("benefits.exclusive"),
+      description: t("benefits.exclusive.desc"),
     },
     {
       icon: (
@@ -97,8 +43,8 @@ export default function ProblemSection() {
           />
         </svg>
       ),
-      title: "Eventos & experiências",
-      description: "Sunsets, downwinds e ativações locais.",
+      title: t("benefits.network"),
+      description: t("benefits.network.desc"),
     },
     {
       icon: (
@@ -112,11 +58,68 @@ export default function ProblemSection() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
           />
         </svg>
       ),
-      title: "Atendimento consultivo",
+      title: t("benefits.legal"),
+      description: t("benefits.legal.desc"),
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 7V3a4 4 0 118 0v4m-4 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 12a3 3 0 00-3 3v2h6v-2a3 3 0 00-3-3m-3 3a2 2 0 012 2v2H7v-2a2 2 0 012-2"
+          />
+        </svg>
+      ),
+      title: t("benefits.events"),
+      description: t("benefits.events.desc"),
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          />
+        </svg>
+      ),
+      title: "Valorização & Insights",
+      description: "Curadoria baseada em dados e tendência de turismo.",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+          />
+        </svg>
+      ),
+      title: "Atendimento Consultivo",
       description: "Concierge de investimento e suporte bilingue.",
     },
   ];
@@ -133,7 +136,7 @@ export default function ProblemSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-primary-500 mb-6 font-diodrum"
+            className="text-3xl md:text-4xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -143,7 +146,7 @@ export default function ProblemSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            Por que fazer parte
+            {t("benefits.title")}
           </motion.h2>
 
           <motion.p
@@ -157,8 +160,7 @@ export default function ProblemSection() {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            Mais que um investimento, uma comunidade conectada ao lifestyle
-            litorâneo
+            {t("benefits.subtitle")}
           </motion.p>
         </div>
 
