@@ -51,25 +51,21 @@ export default function SignupForm({
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
-    try {
-      // Configurar EmailJS (você precisará configurar estas variáveis)
-      const serviceId =
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "your_service_id";
-      const templateId =
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "your_template_id";
-      const publicKey =
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "your_public_key";
+    // Configurar EmailJS
+    const serviceId = "gmailMessage";
+    const templateId = "template_4m13d9p";
+    const publicKey = "qBifyS-ncgTggC0Co";
 
-      // Preparar dados para o template
-      const templateParams = {
-        to_email: "rimesleo@gmail.com",
-        from_name: formData.nome,
-        from_email: formData.email,
-        phone: formData.whatsapp,
-        country: formData.paisEstado || "Não informado",
-        investment_range: getInvestmentRange(formData.faixaInvestimento),
-        main_interest: getMainInterest(formData.interessePrincipal),
-        message: `
+    // Preparar dados para o template
+    const templateParams = {
+      to_email: "rimesleo@gmail.com",
+      from_name: formData.nome,
+      from_email: formData.email,
+      phone: formData.whatsapp,
+      country: formData.paisEstado || "Não informado",
+      investment_range: getInvestmentRange(formData.faixaInvestimento),
+      main_interest: getMainInterest(formData.interessePrincipal),
+      message: `
 Nova Inscrição - Terra Ventos
 
 Informações Pessoais:
@@ -84,8 +80,9 @@ Informações de Investimento:
 
 Data/Hora: ${new Date().toLocaleString("pt-BR")}
         `.trim(),
-      };
+    };
 
+    try {
       // Enviar email usando EmailJS
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
