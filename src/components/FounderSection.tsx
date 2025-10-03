@@ -15,7 +15,7 @@ export default function FounderSection() {
       color="gray"
       direction="up"
       delay={0.1}
-      className="pt-32 pb-20 bg-stone-50 relative overflow-hidden"
+      className="pt-32 pb-20 bg-neutral-950 relative overflow-hidden"
     >
       {/* Logo como sombra de fundo */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -23,8 +23,11 @@ export default function FounderSection() {
           <Logo size="lg" color="default" />
         </div>
       </div>
-      
-      <div id="sobre" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+      <div
+        id="sobre"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Main Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left Side - Profile */}
@@ -48,7 +51,7 @@ export default function FounderSection() {
 
             {/* Name and Title */}
             <motion.h3
-              className="text-2xl font-bold text-primary-500 mb-2"
+              className="text-2xl font-bold text-white mb-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -57,7 +60,7 @@ export default function FounderSection() {
               {t("founder.name")}
             </motion.h3>
             <motion.p
-              className="text-lg text-accent-500 font-medium"
+              className="text-lg text-accent-950 font-medium"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -76,7 +79,7 @@ export default function FounderSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h2
-              className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
+              className="text-4xl md:text-5xl font-bold text-white mb-6 font-breathing"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -85,7 +88,7 @@ export default function FounderSection() {
               {t("founder.heading")}
             </motion.h2>
             <motion.p
-              className="text-xl text-secondary-500 leading-relaxed"
+              className="text-xl text-white leading-relaxed mt-12"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

@@ -7,6 +7,7 @@ import LoadingScreen from "./LoadingScreen";
 import ResizeLoading from "./ResizeLoading";
 import { useResizeLoading } from "../hooks/useResizeLoading";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Logo from "./Logo";
 
 // Interface para as props do componente Hero
 interface HeroProps {
@@ -23,23 +24,17 @@ export default function Hero({ onContactClick }: HeroProps) {
   const [previousVideo, setPreviousVideo] = useState<string>("");
 
   // ID do vídeo fixo do YouTube que será exibido como fundo
-  const videoId = "C1MRkfuTtOI"; // Vídeo fixo do YouTube
+  const videoId = "4DqGyPruV9Y"; // Vídeo fixo do YouTube
 
   // Estados para controlar diferentes fases de carregamento
   const [isLoading, setIsLoading] = useState(true); // Loading screen inicial
   const [isVideoLoading, setIsVideoLoading] = useState(false); // Carregamento do vídeo
   const [isVideoPlaying, setIsVideoPlaying] = useState(false); // Reprodução do vídeo
   const [videoError, setVideoError] = useState(false); // Erro no carregamento do vídeo
+  const [videoKey, setVideoKey] = useState(0); // Chave para forçar reload do iframe
+  const [isBlackScreen, setIsBlackScreen] = useState(false); // Detectar tela preta
 
   // Hook personalizado para detectar redimensionamento significativo da janela
-
-
-
-
-
-
-
-
 
   const isResizeLoading = useResizeLoading({
     threshold: 25, // 25% de mudança para triggerar o loading
@@ -67,7 +62,7 @@ export default function Hero({ onContactClick }: HeroProps) {
     setVideoError(false);
     // Simular carregamento completo após um tempo (para UX)
     setTimeout(() => {
-    setIsVideoLoading(false);
+      setIsVideoLoading(false);
       setIsVideoPlaying(true);
     }, 2000);
   };
@@ -85,6 +80,31 @@ export default function Hero({ onContactClick }: HeroProps) {
     setIsVideoLoading(false);
     setIsVideoPlaying(false);
     setVideoError(true);
+  };
+
+  // Função para recarregar o vídeo
+  const reloadVideo = () => {
+    console.log("🔄 Recarregando vídeo para evitar tela preta...");
+    setVideoKey((prev) => prev + 1); // Força reload do iframe
+    setIsVideoLoading(true);
+    setIsVideoPlaying(false);
+    setVideoError(false);
+    setIsBlackScreen(false);
+
+    // Simular carregamento
+    setTimeout(() => {
+      setIsVideoLoading(false);
+      setIsVideoPlaying(true);
+    }, 2000);
+  };
+
+  // Função para detectar tela preta e recarregar automaticamente
+  const handleBlackScreen = () => {
+    console.log("⚫ Tela preta detectada, recarregando vídeo...");
+    setIsBlackScreen(true);
+    setTimeout(() => {
+      reloadVideo();
+    }, 3000); // Aguarda 3 segundos antes de recarregar
   };
 
   return (
@@ -106,8 +126,9 @@ export default function Hero({ onContactClick }: HeroProps) {
           {currentVideo && (
             <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
               <iframe
-              className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
-                src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1`}
+                key={videoKey} // Força reload quando a chave muda
+                className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
+                src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1&start=0`}
                 title="Background Video"
                 frameBorder="0"
                 allow="autoplay; encrypted-media; fullscreen"
@@ -115,8 +136,47 @@ export default function Hero({ onContactClick }: HeroProps) {
                 onLoad={handleVideoLoadStart}
                 onError={handleVideoError}
                 loading="eager"
+              />
+            </div>
+          )}
+
+          {/* Overlay para detectar tela preta */}
+          {isVideoPlaying && (
+            <div
+              className="absolute inset-0 z-10 cursor-pointer"
+              onClick={handleBlackScreen}
+              title="Clique para recarregar o vídeo se estiver com tela preta"
             />
-          </div>
+          )}
+
+          {/* Indicador de tela preta detectada */}
+          {isBlackScreen && (
+            <div className="absolute top-4 right-4 z-20 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+              ⚫ Recarregando vídeo...
+            </div>
+          )}
+
+          {/* Botão de reload manual */}
+          {isVideoPlaying && !isBlackScreen && (
+            <button
+              onClick={reloadVideo}
+              className="absolute top-4 right-4 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-200"
+              title="Recarregar vídeo"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </button>
           )}
 
           {/* Overlay de loading durante carregamento do vídeo */}
@@ -142,7 +202,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                 <p className="text-xl font-semibold mb-2">
                   {t("hero.video.error")}
                 </p>
-                 <p className="text-sm text-white/80 mb-2">
+                <p className="text-sm text-white/80 mb-2">
                   {t("hero.video.error.subtitle")}
                 </p>
                 <div className="flex gap-2 justify-center">
@@ -158,24 +218,23 @@ export default function Hero({ onContactClick }: HeroProps) {
           )}
         </div>
 
-         {/* Overlay claro para melhorar a visibilidade do texto */}
-         <div className="absolute inset-0 bg-black/5 z-10"></div>
+        {/* Overlay claro para melhorar a visibilidade do texto */}
+        <div className="absolute inset-0 bg-black/5 z-10"></div>
 
         {/* Gradiente sutil para melhorar a legibilidade do texto */}
-         <div className="absolute inset-0 bg-gradient-to-b from-black/2 via-transparent to-black/8 z-15"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/2 via-transparent to-black/8 z-15"></div>
 
         {/* Container principal do conteúdo */}
         <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center py-8 md:py-0">
           <div className="text-center max-w-4xl mx-auto w-full">
             <motion.div
-              className="text-white space-y-2 md:space-y-3"
+              className="text-white space-y-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-
               <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-breathing font-breathing-shadow-dark drop-shadow-2xl mb-1"
+                className="text-6xl md:text-7xl lg:text-8xl leading-tight font-breathing mb-1"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -184,25 +243,18 @@ export default function Hero({ onContactClick }: HeroProps) {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                <AnimatedText delay={0.2} className="block">
-                  {t("signup.title").split(" ").slice(0, -2).join(" ")}
-                </AnimatedText>
-                <motion.span
-                  className="text-accent-500 block font-breathing font-breathing-shadow-dark"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    delay: 0.8,
-                    duration: 1,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
-                >
-                  {t("hero.title")}
-                </motion.span>
+                <div className="space-y-12">
+                  <div className="text-white font-breathing w-full">
+                    {t("signup.title")}
+                  </div>
+                  <div className="text-white font-breathing">
+                    {t("signup.title2")}
+                  </div>
+                </div>
               </motion.h1>
 
               <motion.h2
-                className="text-xl md:text-2xl lg:text-3xl font-semibold text-white/95 drop-shadow-lg font-avenir mb-2"
+                className="text-white font-bold leading-relaxed mb-16 mt-24 max-w-2xl mx-auto"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -211,12 +263,22 @@ export default function Hero({ onContactClick }: HeroProps) {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                  {t("signup.subtitle")}
+                <div className="space-y-1 text-center">
+                  <div className="text-2xl">
+                    Junte-se a uma rede exclusiva de investidores e atletas.
+                  </div>
+                  <div className="text-lg">
+                    E tenha acesso antecipado a oportunidades imobiliárias,
+                  </div>
+                  <div className="text-base">
+                    curadoria jurídica e um lifestyle conectado ao vento e ao
+                    mar.
+                  </div>
+                </div>
               </motion.h2>
 
-
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center mt-4 md:mt-8 w-full"
+                className="flex flex-col sm:flex-row gap-8 justify-center mt-24 md:mt-32 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -233,14 +295,14 @@ export default function Hero({ onContactClick }: HeroProps) {
                 >
                   {t("hero.cta")}
                 </motion.button>
-                  <motion.a
-                    href="#por-que-fazer-parte"
-                    className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
+                <motion.a
+                  href="#por-que-fazer-parte"
+                  className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {t("hero.discover")}
-                  </motion.a>
+                </motion.a>
               </motion.div>
             </motion.div>
           </div>
@@ -254,10 +316,10 @@ export default function Hero({ onContactClick }: HeroProps) {
           transition={{ duration: 1, delay: 0.5 }}
           whileHover={{ scale: 1.05 }}
         >
-             <div className="text-center text-white">
-               <div className="text-3xl font-bold text-accent-500">500+</div>
-               <div className="text-sm text-white/80">Investidores Ativos</div>
-             </div>
+          <div className="text-center text-white">
+            <div className="text-3xl font-bold text-accent-500">500+</div>
+            <div className="text-sm text-white/80">Investidores Ativos</div>
+          </div>
         </motion.div>
 
         {/* Segunda estatística flutuante */}
@@ -268,10 +330,12 @@ export default function Hero({ onContactClick }: HeroProps) {
           transition={{ duration: 1, delay: 0.8 }}
           whileHover={{ scale: 1.05 }}
         >
-             <div className="text-center text-white">
-               <div className="text-3xl font-bold text-accent-500">{t("stats.value")}</div>
-               <div className="text-sm text-white/80">{t("stats.volume")}</div>
-             </div>
+          <div className="text-center text-white">
+            <div className="text-3xl font-bold text-accent-500">
+              {t("stats.value")}
+            </div>
+            <div className="text-sm text-white/80">{t("stats.volume")}</div>
+          </div>
         </motion.div>
 
         {/* Elementos decorativos flutuantes - Ocultos no mobile */}

@@ -140,11 +140,11 @@ export default function ProblemSection() {
           <Logo size="lg" color="default" />
         </div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-16">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-500 mb-6 font-breathing"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -158,7 +158,7 @@ export default function ProblemSection() {
           </motion.h2>
 
           <motion.p
-            className="text-xl md:text-2xl text-secondary-500 font-avenir"
+            className="text-2xl md:text-3xl lg:text-4xl text-secondary-500 font-avenir"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -197,7 +197,7 @@ export default function ProblemSection() {
                   {benefit.title}
                 </h3>
               </div>
-              <p className="text-secondary-500 text-sm leading-relaxed">
+              <p className="text-secondary-500 text-sm leading-relaxed font-body">
                 {benefit.description}
               </p>
             </motion.div>

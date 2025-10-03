@@ -143,7 +143,7 @@ Data/Hora: ${new Date().toLocaleString("pt-BR")}
       {showHeader && (
         <div className="text-center mb-8">
           <motion.h2
-            className="text-3xl md:text-4xl font-breathing font-breathing-shadow-light text-primary-500 mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-500 mb-6 font-breathing"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -152,7 +152,7 @@ Data/Hora: ${new Date().toLocaleString("pt-BR")}
             {t("signup.title")}
           </motion.h2>
           <motion.p
-            className="text-lg text-secondary-500"
+            className="text-lg text-black font-bold mt-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -370,7 +370,7 @@ Data/Hora: ${new Date().toLocaleString("pt-BR")}
             />
             <label
               htmlFor="aceitoComunicacoes"
-              className="ml-3 text-sm text-gray-700"
+              className="ml-3 text-sm text-secondary-500 font-body"
             >
               {t("signup.accept")}
             </label>
@@ -416,7 +416,7 @@ Data/Hora: ${new Date().toLocaleString("pt-BR")}
 
           {/* Footer */}
           <motion.p
-            className="text-center text-sm text-gray-500"
+            className="text-center text-sm text-secondary-500 font-body"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}

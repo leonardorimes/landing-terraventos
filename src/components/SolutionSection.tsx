@@ -11,7 +11,7 @@ export default function SolutionSection() {
   // Array de backgrounds que se alternam (imagens locais)
   const backgrounds = [
     "/images/conections/01.jpg",
-    "/images/conections/02.jpg", 
+    "/images/conections/02.jpg",
     "/images/conections/03.jpg",
     "/images/conections/04.jpg",
     "/images/conections/05.jpg",
@@ -56,15 +56,15 @@ export default function SolutionSection() {
             alt="Comunidade Terra Ventos"
             className="absolute inset-0 w-full h-full object-cover"
             initial={{ opacity: 0 }}
-            animate={{ 
+            animate={{
               opacity: currentBackground === index ? 1 : 0,
-              scale: currentBackground === index ? 1 : 1.1
+              scale: currentBackground === index ? 1 : 1.1,
             }}
-            transition={{ 
-              duration: 1.5, 
+            transition={{
+              duration: 1.5,
               ease: "easeInOut",
               opacity: { duration: 1.5 },
-              scale: { duration: 1.5 }
+              scale: { duration: 1.5 },
             }}
           />
         ))}
@@ -74,6 +74,7 @@ export default function SolutionSection() {
 
       {/* Geometric overlay */}
       <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-neutral-950 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary-500/90 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-primary-500 to-transparent"></div>
       </div>
@@ -81,7 +82,7 @@ export default function SolutionSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-6 font-breathing font-breathing-shadow-dark text-white"
+            className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 font-breathing text-white leading-tight"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

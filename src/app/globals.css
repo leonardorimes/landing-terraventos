@@ -14,6 +14,7 @@ html {
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Average+Sans:wght@400&display=swap");
 /* Fontes da marca */
 @font-face {
   font-family: "Avenir Light";
@@ -88,7 +89,8 @@ html {
 body {
   color: rgb(var(--foreground-rgb));
   background: white;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Average Sans", "Inter", system-ui, sans-serif;
+  font-weight: 100;
   overflow-x: hidden;
 }
 
@@ -122,6 +124,22 @@ html {
 
   .font-breathing-shadow-white {
     text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .font-average-light {
+    font-family: "Average Sans", "Inter", "system-ui", sans-serif;
+    font-weight: 300;
+  }
+
+  .font-average-thin {
+    font-family: "Average Sans", "Inter", "system-ui", sans-serif;
+    font-weight: 100;
+  }
+
+  /* Average Sans Thin como padrão para textos gerais */
+  .font-average {
+    font-family: "Average Sans", "Inter", "system-ui", sans-serif;
+    font-weight: 100;
   }
 }
 

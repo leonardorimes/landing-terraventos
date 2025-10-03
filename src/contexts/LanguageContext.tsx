@@ -49,10 +49,9 @@ const translations = {
     "solution.subtitle": "Terra Ventos: Sua ponte para o litoral nordestino",
     "solution.description":
       "Uma comunidade exclusiva que conecta investidores qualificados a oportunidades imobiliárias curadas no litoral cearense, com foco em lifestyle e sustentabilidade.",
-    "solution.connections.title":
-      "Se conecte com pessoas com o mesmo propósito que você.",
+    "solution.connections.title": "Conexões",
     "solution.connections.description":
-      "Na Comunidade Terra Ventos, o litoral do Ceará se torna um ponto de encontro sem fronteiras. Aqui, você se conecta com pessoas que buscam unir oportunidades com o lifestyle do litoral, criando relações autênticas que vão além dos negócios.",
+      "Na Terra Ventos, o litoral do Ceará se torna um ponto de encontro sem fronteiras. Aqui, você se conecta com pessoas que buscam unir oportunidades com o lifestyle do litoral, criando relações autênticas que vão além dos negócios.",
     "solution.see.how": "Entre agora na comunidade",
 
     // Benefits Section
@@ -67,7 +66,7 @@ const translations = {
     "stats.value": "R$ 50M+",
 
     // FAQ Section
-    "faq.title": "Perguntas Frequentes",
+    "faq.title": "Dúvidas Frequentes",
     "faq.subtitle": "Tire suas dúvidas sobre a Terra Ventos",
 
     // Contact
@@ -89,9 +88,10 @@ const translations = {
     "whatsapp.talk": "Fale com nossa equipe",
 
     // Signup Modal
-    "signup.title": "Faça parte da comunidade Terra Ventos",
+    "signup.title": "Comunidade",
+    "signup.title2": "Terra Ventos",
     "signup.subtitle":
-      "Junte-se a uma rede exclusiva de investidores, atletas e amantes do litoral nordestino. E tenha acesso antecipado a oportunidades imobiliárias, curadoria jurídica e um lifestyle conectado ao vento e ao mar.",
+      "Junte-se a uma rede exclusiva de investidores e atletas. E tenha acesso antecipado a oportunidades imobiliárias, curadoria jurídica e um lifestyle conectado ao vento e ao mar.",
     "signup.name": "Nome completo",
     "signup.email": "E-mail",
     "signup.phone": "Telefone/WhatsApp",
@@ -159,8 +159,8 @@ const translations = {
 
     // Founder Section
     "founder.name": "Bernardo Carvalho Wertheim",
-    "founder.title": "Fundador",
-    "founder.heading": "Quem está por trás da Terra Ventos",
+    "founder.title": "Fundador e CEO",
+    "founder.heading": "Idealizador do Projeto",
     "founder.description":
       "Empreendedor com carreira internacional (ex-Bloomberg e Accenture), fundou a Terra Ventos com a missão de remodelar o mercado imobiliário litorâneo unindo impacto social, lifestyle e segurança.",
     "founder.experience.title": "Nossa experiência",
@@ -313,8 +313,8 @@ const translations = {
 
     // Founder Section
     "founder.name": "Bernardo Carvalho Wertheim",
-    "founder.title": "Founder",
-    "founder.heading": "Who is behind Terra Ventos",
+    "founder.title": "Founder and CEO",
+    "founder.heading": "Project Idealizer",
     "founder.description":
       "Entrepreneur with international career (ex-Bloomberg and Accenture), founded Terra Ventos with the mission to reshape the coastal real estate market by combining social impact, lifestyle and security.",
     "founder.experience.title": "Our experience",
@@ -469,8 +469,8 @@ const translations = {
 
     // Founder Section
     "founder.name": "Bernardo Carvalho Wertheim",
-    "founder.title": "Fundador",
-    "founder.heading": "Quién está detrás de Terra Ventos",
+    "founder.title": "Fundador y CEO",
+    "founder.heading": "Idealizador del Proyecto",
     "founder.description":
       "Emprendedor con carrera internacional (ex-Bloomberg y Accenture), fundó Terra Ventos con la misión de remodelar el mercado inmobiliario costero uniendo impacto social, estilo de vida y seguridad.",
     "founder.experience.title": "Nuestra experiencia",

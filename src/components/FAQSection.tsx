@@ -44,7 +44,7 @@ export default function FAQSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-breathing font-breathing-shadow-light"
+            className="text-4xl md:text-5xl font-bold text-primary-500 mb-6 font-breathing"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -53,7 +53,7 @@ export default function FAQSection() {
             {t("faq.title")}
           </motion.h2>
           <motion.p
-            className="text-xl text-secondary-500"
+            className="text-xl text-black font-bold mt-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -123,7 +123,7 @@ export default function FAQSection() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
                 <div className="px-8 pb-6">
-                  <p className="text-secondary-500 leading-relaxed">
+                  <p className="text-secondary-500 text-lg leading-relaxed font-body">
                     {faq.answer}
                   </p>
                 </div>
