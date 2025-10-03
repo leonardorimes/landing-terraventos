@@ -24,7 +24,7 @@ export default function Hero({ onContactClick }: HeroProps) {
   const [previousVideo, setPreviousVideo] = useState<string>("");
 
   // ID do vídeo fixo do YouTube que será exibido como fundo
-  const videoId = "4DqGyPruV9Y"; // Vídeo fixo do YouTube
+  const videoId = "ssKZTE7YTWU"; // Vídeo fixo do YouTube
 
   // Estados para controlar diferentes fases de carregamento
   const [isLoading, setIsLoading] = useState(true); // Loading screen inicial
@@ -264,16 +264,9 @@ export default function Hero({ onContactClick }: HeroProps) {
                 }}
               >
                 <div className="space-y-1 text-center">
-                  <div className="text-2xl">
-                    Junte-se a uma rede exclusiva de investidores e atletas.
-                  </div>
-                  <div className="text-lg">
-                    E tenha acesso antecipado a oportunidades imobiliárias,
-                  </div>
-                  <div className="text-base">
-                    curadoria jurídica e um lifestyle conectado ao vento e ao
-                    mar.
-                  </div>
+                  <div className="text-2xl">{t("signup.subtitle.line1")}.</div>
+                  <div className="text-lg">{t("signup.subtitle.line2")},</div>
+                  <div className="text-base">{t("signup.subtitle.line3")}.</div>
                 </div>
               </motion.h2>
 

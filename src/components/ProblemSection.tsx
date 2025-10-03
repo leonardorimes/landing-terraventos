@@ -120,8 +120,8 @@ export default function ProblemSection() {
           />
         </svg>
       ),
-      title: "Atendimento Consultivo",
-      description: "Concierge de investimento e suporte bilingue.",
+      title: t("benefits.concierge"),
+      description: t("benefits.concierge.desc"),
     },
   ];
 

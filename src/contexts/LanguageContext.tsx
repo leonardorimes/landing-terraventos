@@ -81,6 +81,8 @@ const translations = {
     "footer.about": "Sobre",
     "footer.opportunities": "Oportunidades",
     "footer.lifestyle": "Lifestyle",
+    "footer.privacy": "Política de Privacidade",
+    "footer.accessibility": "Acessibilidade",
     "footer.address.preá":
       "Rua Antônio Chagas, nº 857 - Preá, Cruz - CE, 62595-000",
     "footer.address.fortaleza":
@@ -92,6 +94,12 @@ const translations = {
     "signup.title2": "Terra Ventos",
     "signup.subtitle":
       "Junte-se a uma rede exclusiva de investidores e atletas. E tenha acesso antecipado a oportunidades imobiliárias, curadoria jurídica e um lifestyle conectado ao vento e ao mar.",
+    "signup.subtitle.line1":
+      "Junte-se a uma rede exclusiva de investidores e atletas",
+    "signup.subtitle.line2":
+      "E tenha acesso antecipado a oportunidades imobiliárias",
+    "signup.subtitle.line3":
+      "curadoria jurídica e um lifestyle conectado ao vento e ao mar",
     "signup.name": "Nome completo",
     "signup.email": "E-mail",
     "signup.phone": "Telefone/WhatsApp",
@@ -151,6 +159,8 @@ const translations = {
     "benefits.events": "Eventos e Experiências",
     "benefits.events.desc":
       "Participe de eventos onlines, presenciais e ativações da comunidade",
+    "benefits.concierge": "Atendimento Consultivo",
+    "benefits.concierge.desc": "Concierge de investimento e suporte bilingue.",
 
     // Stats Section
     "stats.experience": "Anos de Experiência",
@@ -205,9 +215,9 @@ const translations = {
     "solution.subtitle": "Terra Ventos: Your bridge to the northeastern coast",
     "solution.description":
       "An exclusive community that connects qualified investors to curated real estate opportunities on the Ceará coast, focusing on lifestyle and sustainability.",
-    "solution.connections.title": "Connect with people who share your purpose.",
+    "solution.connections.title": "Connections",
     "solution.connections.description":
-      "In the Terra Ventos Community, the coast of Ceará becomes a borderless meeting point. Here, you connect with people who seek to unite opportunities with coastal lifestyle, creating authentic relationships that go beyond business.",
+      "In Terra Ventos, the coast of Ceará becomes a borderless meeting point. Here, you connect with people who seek to unite opportunities with coastal lifestyle, creating authentic relationships that go beyond business.",
     "solution.see.how": "Join the community now",
 
     // Benefits Section
@@ -223,7 +233,7 @@ const translations = {
 
     // FAQ Section
     "faq.title": "Frequently Asked Questions",
-    "faq.subtitle": "Get answers about Terra Ventos",
+    "faq.subtitle": "Get your questions answered about Terra Ventos",
 
     // Contact
     "contact.title": "Get in Touch",
@@ -237,6 +247,8 @@ const translations = {
     "footer.about": "About",
     "footer.opportunities": "Opportunities",
     "footer.lifestyle": "Lifestyle",
+    "footer.privacy": "Privacy Policy",
+    "footer.accessibility": "Accessibility",
     "footer.address.preá":
       "Rua Antônio Chagas, nº 857 - Preá, Cruz - CE, 62595-000",
     "footer.address.fortaleza":
@@ -244,9 +256,16 @@ const translations = {
     "whatsapp.talk": "Talk to our team",
 
     // Signup Modal
-    "signup.title": "Be part of the Terra Ventos community",
+    "signup.title": "Community",
+    "signup.title2": "Terra Ventos",
     "signup.subtitle":
       "Join an exclusive network of investors, athletes and lovers of the northeastern coast. And get early access to real estate opportunities, legal curation and a lifestyle connected to wind and sea.",
+    "signup.subtitle.line1":
+      "Join an exclusive network of investors and athletes",
+    "signup.subtitle.line2":
+      "And get early access to real estate opportunities",
+    "signup.subtitle.line3":
+      "legal curation and a lifestyle connected to wind and sea",
     "signup.name": "Full name",
     "signup.email": "Email",
     "signup.phone": "Phone/WhatsApp",
@@ -305,6 +324,8 @@ const translations = {
     "benefits.events": "Events and Experiences",
     "benefits.events.desc":
       "Participate in online, in-person events and community activations",
+    "benefits.concierge": "Consultive Service",
+    "benefits.concierge.desc": "Investment concierge and bilingual support.",
 
     // Stats Section
     "stats.experience": "Years of Experience",
@@ -359,10 +380,9 @@ const translations = {
     "solution.subtitle": "Terra Ventos: Tu puente hacia la costa noreste",
     "solution.description":
       "Una comunidad exclusiva que conecta inversionistas calificados con oportunidades inmobiliarias curadas en la costa de Ceará, enfocándose en estilo de vida y sostenibilidad.",
-    "solution.connections.title":
-      "Conéctate con personas que comparten tu propósito.",
+    "solution.connections.title": "Conexiones",
     "solution.connections.description":
-      "En la Comunidad Terra Ventos, la costa de Ceará se convierte en un punto de encuentro sin fronteras. Aquí, te conectas con personas que buscan unir oportunidades con el estilo de vida costero, creando relaciones auténticas que van más allá de los negocios.",
+      "En Terra Ventos, la costa de Ceará se convierte en un punto de encuentro sin fronteras. Aquí, te conectas con personas que buscan unir oportunidades con el estilo de vida costero, creando relaciones auténticas que van más allá de los negocios.",
     "solution.see.how": "Únete a la comunidad ahora",
 
     // Benefits Section
@@ -377,7 +397,7 @@ const translations = {
     "stats.value": "$9M+",
 
     // FAQ Section
-    "faq.title": "Preguntas Frecuentes",
+    "faq.title": "Dudas Frecuentes",
     "faq.subtitle": "Resuelve tus dudas sobre Terra Ventos",
 
     // Contact
@@ -392,6 +412,8 @@ const translations = {
     "footer.about": "Acerca de",
     "footer.opportunities": "Oportunidades",
     "footer.lifestyle": "Estilo de vida",
+    "footer.privacy": "Política de Privacidad",
+    "footer.accessibility": "Accesibilidad",
     "footer.address.preá":
       "Rua Antônio Chagas, nº 857 - Preá, Cruz - CE, 62595-000",
     "footer.address.fortaleza":
@@ -399,9 +421,16 @@ const translations = {
     "whatsapp.talk": "Habla con nuestro equipo",
 
     // Signup Modal
-    "signup.title": "Forma parte de la comunidad Terra Ventos",
+    "signup.title": "Comunidad",
+    "signup.title2": "Terra Ventos",
     "signup.subtitle":
       "Únete a una red exclusiva de inversionistas, atletas y amantes de la costa noreste. Y ten acceso anticipado a oportunidades inmobiliarias, curaduría jurídica y un estilo de vida conectado al viento y al mar.",
+    "signup.subtitle.line1":
+      "Únete a una red exclusiva de inversionistas y atletas",
+    "signup.subtitle.line2":
+      "Y ten acceso anticipado a oportunidades inmobiliarias",
+    "signup.subtitle.line3":
+      "curaduría jurídica y un estilo de vida conectado al viento y al mar",
     "signup.name": "Nombre completo",
     "signup.email": "Correo electrónico",
     "signup.phone": "Teléfono/WhatsApp",
@@ -461,6 +490,8 @@ const translations = {
     "benefits.events": "Eventos y Experiencias",
     "benefits.events.desc":
       "Participa en eventos en línea, presenciales y activaciones de la comunidad",
+    "benefits.concierge": "Servicio Consultivo",
+    "benefits.concierge.desc": "Concierge de inversión y soporte bilingüe.",
 
     // Stats Section
     "stats.experience": "Años de Experiencia",

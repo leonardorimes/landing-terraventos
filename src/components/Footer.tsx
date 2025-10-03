@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="bg-primary-500 text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Seção do logo - mais proeminente */}
-        <motion.div 
+        <motion.div
           className="text-center mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,15 +31,9 @@ export default function Footer() {
           {/* Navegação - apenas texto, sem links */}
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-8 mb-6 lg:mb-0">
             <div className="flex flex-wrap gap-4 md:gap-8">
-              <span className="text-gray-300">
-                {t("footer.about")}
-              </span>
-              <span className="text-gray-300">
-                {t("footer.opportunities")}
-              </span>
-              <span className="text-gray-300">
-                {t("footer.lifestyle")}
-              </span>
+              <span className="text-gray-300">{t("footer.about")}</span>
+              <span className="text-gray-300">{t("footer.opportunities")}</span>
+              <span className="text-gray-300">{t("footer.lifestyle")}</span>
             </div>
           </div>
 
@@ -65,13 +59,13 @@ export default function Footer() {
                 href="#politica-privacidade"
                 className="text-gray-300 hover:text-white transition-colors"
               >
-                Política de Privacidade
+                {t("footer.privacy")}
               </a>
               <a
                 href="#acessibilidade"
                 className="text-gray-300 hover:text-white transition-colors"
               >
-                Acessibilidade
+                {t("footer.accessibility")}
               </a>
               <p className="text-gray-300">{t("footer.rights")}</p>
             </div>
