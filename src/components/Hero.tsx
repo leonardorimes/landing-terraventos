@@ -125,9 +125,15 @@ export default function Hero({ onContactClick }: HeroProps) {
           {/* Iframe do vídeo do YouTube com configurações otimizadas */}
           {currentVideo && (
             <div className="absolute inset-0 w-full h-full z-5 overflow-hidden">
+              {/* Gradiente sutil para suavizar bordas cortadas */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-black/10 z-10 pointer-events-none"></div>
               <iframe
                 key={videoKey} // Força reload quando a chave muda
-                className="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2"
+                className="absolute top-1/2 left-1/2 
+                  w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2
+                  md:w-[177.78vh] md:h-[56.25vw]
+                  sm:w-[200vh] sm:h-[112.5vw] sm:scale-110
+                  w-[250vh] h-[140.625vw] scale-125"
                 src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1&mute=1&loop=1&playlist=${currentVideo}&controls=0&showinfo=0&rel=0&modestbranding=1&fs=0&disablekb=1&enablejsapi=1&start=0`}
                 title="Background Video"
                 frameBorder="0"
@@ -234,7 +240,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <motion.h1
-                className="text-6xl md:text-7xl lg:text-8xl leading-tight font-breathing mb-1"
+                className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight font-breathing mb-1"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -243,7 +249,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                <div className="space-y-12">
+                <div className="space-y-6 sm:space-y-8 md:space-y-12">
                   <div className="text-white font-breathing w-full">
                     {t("signup.title")}
                   </div>
@@ -254,7 +260,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               </motion.h1>
 
               <motion.h2
-                className="text-white font-bold leading-relaxed mb-16 mt-24 max-w-2xl mx-auto"
+                className="text-white font-bold leading-relaxed mb-12 mt-12 sm:mb-16 sm:mt-16 md:mb-16 md:mt-24 max-w-2xl mx-auto"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -264,14 +270,20 @@ export default function Hero({ onContactClick }: HeroProps) {
                 }}
               >
                 <div className="space-y-1 text-center">
-                  <div className="text-2xl">{t("signup.subtitle.line1")}.</div>
-                  <div className="text-lg">{t("signup.subtitle.line2")},</div>
-                  <div className="text-base">{t("signup.subtitle.line3")}.</div>
+                  <div className="text-lg sm:text-xl md:text-2xl font-semibold">
+                    {t("signup.subtitle.line1")}.
+                  </div>
+                  <div className="text-base sm:text-lg md:text-lg font-medium">
+                    {t("signup.subtitle.line2")},
+                  </div>
+                  <div className="text-sm sm:text-base md:text-base">
+                    {t("signup.subtitle.line3")}.
+                  </div>
                 </div>
               </motion.h2>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-8 justify-center mt-24 md:mt-32 w-full"
+                className="flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center mt-16 sm:mt-20 md:mt-32 w-full"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -282,7 +294,7 @@ export default function Hero({ onContactClick }: HeroProps) {
               >
                 <motion.button
                   onClick={onContactClick}
-                  className="bg-accent-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-avenir w-full sm:w-auto"
+                  className="bg-accent-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-accent-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -290,7 +302,7 @@ export default function Hero({ onContactClick }: HeroProps) {
                 </motion.button>
                 <motion.a
                   href="#por-que-fazer-parte"
-                  className="border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
+                  className="border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-avenir w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
