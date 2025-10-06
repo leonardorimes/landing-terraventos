@@ -38,6 +38,18 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       initial={{ opacity: 1 }}
       animate={{ opacity: isComplete ? 0 : 1 }}
       transition={{ duration: 0.5 }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
     >
       {/* Background pattern sutil */}
       <div className="absolute inset-0 opacity-10">
@@ -45,7 +57,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-l from-transparent via-white/10 to-transparent transform skew-y-12"></div>
       </div>
 
-      <div className="relative z-10 text-center">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center">
         {/* Logo */}
         <motion.div
           className="mb-8"
@@ -58,12 +70,12 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
         {/* Spinner */}
         <motion.div
-          className="relative mb-6"
+          className="flex items-center justify-center mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto"></div>
+          <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
         </motion.div>
 
         {/* Texto */}
@@ -79,7 +91,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
 
         {/* Barra de progresso */}
         <motion.div
-          className="mt-6 w-64 mx-auto"
+          className="mt-6 w-64 flex flex-col items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.5 }}

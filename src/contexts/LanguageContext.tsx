@@ -148,6 +148,7 @@ const translations = {
 
     // Benefits Section
     "benefits.exclusive": "Acesso Exclusivo",
+    "benefits.exclusive.free": "100% Gratuito",
     "benefits.exclusive.desc":
       "Receba as oportunidades do mercado de forma antecipada",
     "benefits.network": "Networking Global",
@@ -314,6 +315,7 @@ const translations = {
 
     // Benefits Section
     "benefits.exclusive": "Exclusive Access",
+    "benefits.exclusive.free": "100% Free",
     "benefits.exclusive.desc": "Receive market opportunities in advance",
     "benefits.network": "Global Networking",
     "benefits.network.desc":
@@ -479,6 +481,7 @@ const translations = {
 
     // Benefits Section
     "benefits.exclusive": "Acceso Exclusivo",
+    "benefits.exclusive.free": "100% Gratuito",
     "benefits.exclusive.desc":
       "Recibe las oportunidades del mercado de forma anticipada",
     "benefits.network": "Networking Global",

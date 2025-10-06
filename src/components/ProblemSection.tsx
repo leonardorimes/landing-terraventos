@@ -194,7 +194,16 @@ export default function ProblemSection() {
               <div className="flex items-center mb-4">
                 <div className="text-accent-500 mr-3">{benefit.icon}</div>
                 <h3 className="text-lg font-semibold text-primary-500">
-                  {benefit.title}
+                  {index === 0 ? (
+                    <div className="flex flex-col">
+                      <span>{benefit.title}</span>
+                      <span className="text-sm text-primary-500 font-medium">
+                        {t("benefits.exclusive.free")}
+                      </span>
+                    </div>
+                  ) : (
+                    benefit.title
+                  )}
                 </h3>
               </div>
               <p className="text-secondary-500 text-sm leading-relaxed font-body">
