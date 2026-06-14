@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Convites | TV Founders</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#142431;color:#F5F0EB;min-height:100vh;padding:2rem}
+.container{max-width:600px;margin:0 auto}
+h1{font-size:1.5rem;color:#C8B49B;margin-bottom:0.3rem}
+.sub{color:rgba(245,240,235,0.4);font-size:0.85rem;margin-bottom:2rem}
+label{display:block;font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;color:#C8B49B;margin-bottom:0.3rem;margin-top:1rem}
+input,textarea{width:100%;padding:0.8rem;background:rgba(255,255,255,0.06);border:1px solid rgba(200,180,155,0.15);border-radius:8px;color:#F5F0EB;font-size:0.95rem;outline:none}
+input:focus{border-color:#C8B49B}
+textarea{min-height:120px;margin-top:1rem;font-family:monospace;font-size:0.8rem}
+.btn{display:inline-block;margin-top:1rem;padding:0.8rem 2rem;background:linear-gradient(135deg,#C8B49B,#b8a48b);color:#142431;font-weight:600;border:none;border-radius:8px;cursor:pointer;font-size:0.9rem;margin-right:0.5rem}
+.btn:hover{opacity:0.9}
+.btn.secondary{background:transparent;border:1px solid rgba(200,180,155,0.3);color:#C8B49B}
+.link-box{background:rgba(200,180,155,0.08);border:1px solid rgba(200,180,155,0.2);border-radius:10px;padding:1rem;margin-top:1rem;word-break:break-all;font-family:monospace;font-size:0.85rem;color:#C8B49B;cursor:pointer;position:relative}
+.link-box::after{content:'Clique para copiar';position:absolute;top:0.3rem;right:0.5rem;font-size:0.65rem;color:rgba(245,240,235,0.3);font-family:sans-serif}
+.link-box.copied::after{content:'Copiado!';color:#C8B49B}
+.batch-results{margin-top:1.5rem}
+.batch-item{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(200,180,155,0.08);font-size:0.85rem;gap:1rem}
+.batch-item .name{color:#F5F0EB;white-space:nowrap}
+.batch-item .link{color:#C8B49B;font-family:monospace;font-size:0.75rem;cursor:pointer;word-break:break-all}
+hr{border:none;border-top:1px solid rgba(200,180,155,0.1);margin:2rem 0}
+.copied-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#C8B49B;color:#142431;padding:0.6rem 1.5rem;border-radius:20px;font-size:0.85rem;font-weight:600;opacity:0;transition:opacity 0.3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Gerador de Convites Founders</h1>
+<p class="sub">Ferramenta interna &mdash; Terra Ventos</p>
+<label>Nome do convidado</label>
+<input type="text" id="nome" placeholder="Ex: Joao Silva" oninput="generateLink()">
+<div id="single-result" style="display:none">
+<div class="link-box" id="link-output" onclick="copyLink(this)"></div>
+<button class="btn" onclick="copyLink(document.getElementById('link-output'))">Copiar Link</button>
+<button class="btn secondary" onclick="openWhatsApp()">Enviar via WhatsApp</button>
+</div>
+<hr>
+<label>Gerar em lote (um nome por linha)</label>
+<textarea id="batch-names" placeholder="Joao Silva&#10;Maria Santos&#10;Pedro Costa"></textarea>
+<button class="btn" onclick="generateBatch()">Gerar Links em Lote</button>
+<button class="btn secondary" onclick="copyAll()">Copiar Todos</button>
+<div class="batch-results" id="batch-results"></div>
+</div>
+<div class="copied-toast" id="toast">Link copiado!</div>
+<script>
+var BASE='https://comunidade.terraventos.com.br';
+function generateLink(){var n=document.getElementById('nome').value.trim();var r=document.getElementById('single-result');var o=document.getElementById('link-output');if(!n){r.style.display='none';return}var l=BASE+'?nome='+encodeURIComponent(n);o.textContent=l;r.style.display='block'}
+function copyLink(el){navigator.clipboard.writeText(el.textContent);el.classList.add('copied');showToast();setTimeout(function(){el.classList.remove('copied')},2000)}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg||'Link copiado!';t.classList.add('show');setTimeout(function(){t.classList.remove('show')},1500)}
+function openWhatsApp(){var n=document.getElementById('nome').value.trim();var l=BASE+'?nome='+encodeURIComponent(n);var m=encodeURIComponent('Oi '+n+'! Voce recebeu um convite exclusivo para a comunidade Terra Ventos Founders - apenas 30 vagas para fundadores.\n\nAcesse aqui: '+l);window.open('https://wa.me/?text='+m,'_blank')}
+function generateBatch(){var t=document.getElementById('batch-names').value.trim();if(!t)return;var names=t.split('\n').map(function(n){return n.trim()}).filter(Boolean);var c=document.getElementById('batch-results');c.innerHTML=names.map(function(name){var link=BASE+'?nome='+encodeURIComponent(name);return '<div class="batch-item"><span class="name">'+name+'</span><span class="link" onclick="navigator.clipboard.writeText(\''+link+'\');showToast()">'+link+'</span></div>'}).join('')}
+function copyAll(){var t=document.getElementById('batch-names').value.trim();if(!t)return;var names=t.split('\n').map(function(n){return n.trim()}).filter(Boolean);var lines=names.map(function(name){return name+'\t'+BASE+'?nome='+encodeURIComponent(name)}).join('\n');navigator.clipboard.writeText(lines);showToast('Todos copiados!')}
+</script>
+</body>
+</html>
